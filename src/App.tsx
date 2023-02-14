@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./components/TodoList/TodoList";
-import {TasksStateType, TodosType} from "./redux/home-reducer";
+import {FilterType, TasksStateType, TodosType} from "./redux/home-reducer";
 import {v4} from "uuid";
 
 function App() {
@@ -41,22 +41,52 @@ function App() {
     })
 
     const addNewTask = (todoId: string, taskTitle: string) => {
-        setTasks({...tasks, [todoId] : [{taskId: v4(), taskTitle, isDone: false}, ...tasks[todoId]]})
+        setTasks({...tasks, [todoId]: [{taskId: v4(), taskTitle, isDone: false}, ...tasks[todoId]]});
     }
-
     const removeTask = (todoId: string, taskId: string) => {
-        setTasks({...tasks, [todoId] : tasks[todoId].filter(t => t.taskId !== taskId)})
+        setTasks({...tasks, [todoId]: tasks[todoId].filter(t => t.taskId !== taskId)});
+    }
+    const setTaskStatus = (todoId: string, taskId: string, isDone: boolean) => {
+        setTasks({...tasks, [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, isDone})});
+    }
+    const setTodoFilter = (todoId: string, filter: FilterType) => {
+        setTodos(todos.map(td => td.todoId !== todoId ? td : {...td, filter: filter}));
+    }
+    const deleteTodo = (todoId: string) => {
+        setTodos(todos.filter(td => td.todoId !== todoId));
+
+        delete(tasks[todoId]);
+        setTasks({...tasks});
     }
 
-    const todoItems = todos.map(t =>
-        <TodoList
-            key={t.todoId}
-            todoId={t.todoId}
-            todos={t}
-            tasks={tasks[t.todoId]}
-            addNewTask={addNewTask}
-            removeTask={removeTask}
-        />)
+
+    const todoItems = todos.map(td => {
+
+        let filteredTasks;
+        switch (td.filter) {
+            case "active":
+                filteredTasks = tasks[td.todoId].filter(t => !t.isDone);
+                break;
+            case "completed":
+                filteredTasks = tasks[td.todoId].filter(t => t.isDone);
+                break;
+            default:
+                filteredTasks = tasks[td.todoId];
+        }
+
+        return (
+            <TodoList
+                key={td.todoId}
+                todoId={td.todoId}
+                todos={td}
+                tasks={filteredTasks}
+                addNewTask={addNewTask}
+                removeTask={removeTask}
+                setTaskStatus={setTaskStatus}
+                setTodoFilter={setTodoFilter}
+                deleteTodo={deleteTodo}
+            />)
+    })
 
     return (
         <div className="App">

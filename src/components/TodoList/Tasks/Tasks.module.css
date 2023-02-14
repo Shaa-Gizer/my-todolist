@@ -3,7 +3,8 @@
     border: 1px solid white;
     border-radius: 6px;
     background-color: lightgray;
-    padding: 5px;
+    padding: 3px;
+    margin: 5px;
 }
 
 .taskTitle {
@@ -25,17 +26,22 @@
 }
 
 .errorMessage {
-    color: darkred;
-}
-
-.taskIsDone {
-    border: none;
+    padding: 3px;
+    color: white;
+    background-color: indianred;
+    border: 1px solid white;
     border-radius: 6px;
-    text-decoration: underline;
-    color: seagreen;
     opacity: 0.5;
 }
 
-.taskNotDone {
-
+.taskIsDone {
+    border: 1px solid white;
+    border-radius: 6px;
+    text-decoration: line-through;
+    color: seagreen;
+    opacity: 0.5;
+    text-align: left;
+    background-color: lightgray;
+    padding: 3px;
+    margin: 5px;
 }
