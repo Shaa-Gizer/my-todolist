@@ -4,10 +4,9 @@
 .App {
   padding: 20px;
   display: flex;
-  background-color: #003A41;
   width: auto;
   height: auto;
-  font-family: Bradley Hand, cursive;
+  font-family: Roboto, sans-serif;
 }
 
 .App > div {

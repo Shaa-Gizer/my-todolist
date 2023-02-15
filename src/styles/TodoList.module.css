@@ -2,14 +2,11 @@
     float: left;
     border: 2px solid black;
     border-radius: 6px;
-    background-color: #116474;
 }
 
 .todoItem {
-    background-color: #1B9CA8;
     border: 2px solid black;
     border-radius: 6px;
-    width: 200px;
     margin: 20px;
     padding: 20px;
     float: left;
@@ -26,37 +23,20 @@
 }
 
 .deleteTodoBtn {
-    border: 1px solid white;
-    border-radius: 6px;
-    background-color: indianred;
-    color: white;
-    font-family: Bradley Hand, cursive;
+}
+
+.filterBtns {
+    float: bottom;
 }
 
 .defaultFilterBtn {
-    border: 1px solid white;
-    border-radius: 6px;
-    background-color: lightgray;
-    font-family: Bradley Hand, cursive;
 }
 
 .allBtn {
-    border: 1px solid white;
-    border-radius: 6px;
-    background-color: steelblue;
-    font-family: Bradley Hand, cursive;
 }
 
 .activeBtn {
-    border: 1px solid white;
-    border-radius: 6px;
-    background-color: coral;
-    font-family: Bradley Hand, cursive;
 }
 
 .completedBtn {
-    border: 1px solid white;
-    border-radius: 6px;
-    background-color: mediumseagreen;
-    font-family: Bradley Hand, cursive;
 }

@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import aifStyle from "../../../styles/AddItemForm.module.css";
-import {TextField} from "@mui/material";
+import {IconButton, TextField} from "@mui/material";
+import {Add} from "@mui/icons-material";
 
 interface AddItemFormPropsType {
     addNewItem: (taskTitle: string) => void
@@ -32,16 +33,16 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
                 variant={'outlined'}
                 label={!error ? 'New title' : 'Error!'}
                 error={error}
+                helperText={error ? 'Title is required' : ''}
                 value={newTaskTitle}
                 className={inputErrorClass}
                 onChange={onChangeSetNewTaskTitle}
                 onKeyDown={onKeyDownAddNewTask}
             />
-            <button
-                className={aifStyle.addTaskBtn}
-                onClick={onClickAddNewItem}
-            >+
-            </button>
+            <IconButton>
+                <Add className={aifStyle.addTaskBtn}
+                     onClick={onClickAddNewItem}/>
+            </IconButton>
         </div>
     );
 };

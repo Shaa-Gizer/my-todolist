@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import esStyle from "../../../styles/EditableSpan.module.css";
+import {TextField} from "@mui/material";
 
 interface EditableSpanPropsType {
     title: string,
@@ -25,7 +26,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
     }
 
     return editMode
-        ? <input
+        ? <TextField
             value={title}
             onBlur={deactivateEditMode}
             onChange={onChangeEditTitle}

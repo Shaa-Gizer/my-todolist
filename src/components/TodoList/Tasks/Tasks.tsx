@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import tStyle from '../../../styles/Tasks.module.css'
 import {TasksType} from "../../../redux/home-reducer";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
-import {IconButton} from "@mui/material";
+import {Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 
 interface TasksPropsType {
@@ -31,9 +31,8 @@ export const Tasks: React.FC<TasksPropsType> = (props) => {
             return (
                 <div key={t.taskId}
                      className={t.isDone ? tStyle.taskIsDone : tStyle.tasksList}>
-                    <input
+                    <Checkbox
                         className={tStyle.taskCheck}
-                        type='checkbox'
                         checked={t.isDone}
                         onChange={onChangeSetTaskStatus}
                     />
