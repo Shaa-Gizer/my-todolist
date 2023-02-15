@@ -1,16 +1,16 @@
-export type TasksType = {
+export interface TasksType {
     taskId: string,
     taskTitle: string,
     isDone: boolean
 }
 
-export type TasksStateType = {
+export interface TasksStateType {
     [todoId: string] : TasksType[]
 }
 
 export type FilterType = 'all' | 'active' | 'completed'
 
-export type TodosType = {
+export interface TodosType {
     todoId: string,
     todoTitle: string,
     filter: FilterType

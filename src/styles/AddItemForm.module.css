@@ -1,0 +1,17 @@
+.main {
+
+}
+
+.addTaskBtn {
+    border: 1px solid white;
+    border-radius: 6px;
+    background-color: lightgray;
+    font-family: Bradley Hand, cursive;
+}
+
+.error {
+}
+
+.errorText {
+    color: darkred;
+}

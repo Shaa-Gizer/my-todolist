@@ -18,6 +18,11 @@
 
 .todoTitle {
     text-decoration: underline;
+    margin: auto;
+}
+
+.titleBtn {
+    display: flex
 }
 
 .deleteTodoBtn {
@@ -25,50 +30,33 @@
     border-radius: 6px;
     background-color: indianred;
     color: white;
-}
-
-.inputTodoDefault {
-    border: 1px solid white;
-    border-radius: 6px;
-    background-color: lightgray;
-    margin: 5px;
-}
-
-.addTaskBtn {
-    border: 1px solid white;
-    border-radius: 6px;
-    background-color: lightgray;
-}
-
-.error {
-    border: 2px solid darkred;
-    border-radius: 6px;
-}
-
-.errorText {
-    color: darkred;
+    font-family: Bradley Hand, cursive;
 }
 
 .defaultFilterBtn {
     border: 1px solid white;
     border-radius: 6px;
     background-color: lightgray;
+    font-family: Bradley Hand, cursive;
 }
 
 .allBtn {
     border: 1px solid white;
     border-radius: 6px;
     background-color: steelblue;
+    font-family: Bradley Hand, cursive;
 }
 
 .activeBtn {
     border: 1px solid white;
     border-radius: 6px;
     background-color: coral;
+    font-family: Bradley Hand, cursive;
 }
 
 .completedBtn {
     border: 1px solid white;
     border-radius: 6px;
     background-color: mediumseagreen;
+    font-family: Bradley Hand, cursive;
 }

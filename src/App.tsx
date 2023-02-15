@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import './App.css';
-import TodoList from "./components/TodoList/TodoList";
+import {TodoList} from "./components/TodoList/TodoList";
+import {AddItemForm} from "./components/TodoList/AddItemForm/AddItemForm";
 import {FilterType, TasksStateType, TodosType} from "./redux/home-reducer";
 import {v4} from "uuid";
 
-function App() {
+export function App() {
 
     const todoId1 = v4();
     const todoId2 = v4();
@@ -55,10 +56,20 @@ function App() {
     const deleteTodo = (todoId: string) => {
         setTodos(todos.filter(td => td.todoId !== todoId));
 
-        delete(tasks[todoId]);
+        delete (tasks[todoId]);
         setTasks({...tasks});
     }
-
+    const addNewTodo = (newTitle: string) => {
+        let newTodo: TodosType = {todoId: v4(), todoTitle: newTitle, filter: "all"}
+        setTodos([newTodo, ...todos]);
+        setTasks({...tasks, [newTodo.todoId] : []})
+    }
+    const setNewTaskTitleValue = (todoId: string, taskId: string, newTaskTitleValue: string) => {
+        setTasks({...tasks, [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, taskTitle: newTaskTitleValue})});
+    }
+    const setNewTodoTitleValue = (todoId: string, newTitleValue: string) => {
+        setTodos(todos.map(td => td.todoId !== todoId ? td : {...td, todoTitle: newTitleValue}))
+    }
 
     const todoItems = todos.map(td => {
 
@@ -85,14 +96,16 @@ function App() {
                 setTaskStatus={setTaskStatus}
                 setTodoFilter={setTodoFilter}
                 deleteTodo={deleteTodo}
-            />)
+                setNewTaskTitleValue={setNewTaskTitleValue}
+                setNewTodoTitleValue={setNewTodoTitleValue}
+            />
+        )
     })
 
     return (
         <div className="App">
+            <AddItemForm addNewItem={addNewTodo}/>
             {todoItems}
         </div>
     );
 }
-
-export default App;

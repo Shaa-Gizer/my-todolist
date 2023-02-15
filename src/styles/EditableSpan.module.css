@@ -1,0 +1,14 @@
+.taskTitle {
+    padding: 5px;
+}
+
+.editMode {
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 6px;
+    background-color: lightgray;
+    margin: 5px;
+    font-family: Bradley Hand, cursive;
+    width: 160px;
+    height: 20px;
+}
