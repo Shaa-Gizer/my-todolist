@@ -9,18 +9,28 @@ interface EditableSpanPropsType {
 
 export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState<string>('')
+    const [error, setError] = useState<boolean>(false)
 
     const activateEditMode = () => {
+        setError(false)
         setEditMode(true)
         setTitle(props.title)
     }
     const deactivateEditMode = () => {
-        setEditMode(false)
-        props.onChangeEditableSpan(title)
+        if (title.trim()) {
+            props.onChangeEditableSpan(title)
+            setEditMode(false)
+        }
+        else {
+            setEditMode(true)
+            setError(true)
+        }
     }
 
-    const onChangeEditTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+    const onChangeEditTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
     const onKeyDownSetNewTitle = (e: KeyboardEvent<HTMLInputElement>) => {
       e.key === 'Enter' && deactivateEditMode()
     }
@@ -33,6 +43,8 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
             onKeyDown={onKeyDownSetNewTitle}
             className={esStyle.editMode}
             autoFocus
+            label={error ? "Title is required!" : ''}
+            error={error}
         />
         : <span
             className={esStyle.taskTitle}

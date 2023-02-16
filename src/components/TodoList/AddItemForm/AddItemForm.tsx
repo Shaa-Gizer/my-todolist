@@ -23,6 +23,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     const onKeyDownAddNewTask = (e: KeyboardEvent<HTMLInputElement>) => {
         e.key === 'Enter' && onClickAddNewItem()
     }
+    const onBlurSetErrorFalse = () => setError(false);
 
     const inputErrorClass = error ? aifStyle.error : aifStyle.inputTodoDefault;
 
@@ -37,7 +38,9 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
                 value={newTaskTitle}
                 className={inputErrorClass}
                 onChange={onChangeSetNewTaskTitle}
+                onBlur={onBlurSetErrorFalse}
                 onKeyDown={onKeyDownAddNewTask}
+                autoFocus
             />
             <IconButton>
                 <Add className={aifStyle.addTaskBtn}

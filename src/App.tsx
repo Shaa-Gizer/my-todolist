@@ -4,6 +4,8 @@ import {TodoList} from "./components/TodoList/TodoList";
 import {AddItemForm} from "./components/TodoList/AddItemForm/AddItemForm";
 import {FilterType, TasksStateType, TodosType} from "./redux/home-reducer";
 import {v4} from "uuid";
+import {AppBar, Button, Container, Grid, IconButton, Toolbar, Typography} from "@mui/material";
+import {Menu} from "@mui/icons-material";
 
 export function App() {
 
@@ -62,10 +64,13 @@ export function App() {
     const addNewTodo = (newTitle: string) => {
         let newTodo: TodosType = {todoId: v4(), todoTitle: newTitle, filter: "all"}
         setTodos([newTodo, ...todos]);
-        setTasks({...tasks, [newTodo.todoId] : []})
+        setTasks({...tasks, [newTodo.todoId]: []})
     }
     const setNewTaskTitleValue = (todoId: string, taskId: string, newTaskTitleValue: string) => {
-        setTasks({...tasks, [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, taskTitle: newTaskTitleValue})});
+        setTasks({
+            ...tasks,
+            [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, taskTitle: newTaskTitleValue})
+        });
     }
     const setNewTodoTitleValue = (todoId: string, newTitleValue: string) => {
         setTodos(todos.map(td => td.todoId !== todoId ? td : {...td, todoTitle: newTitleValue}))
@@ -104,8 +109,31 @@ export function App() {
 
     return (
         <div className="App">
-            <AddItemForm addNewItem={addNewTodo}/>
-            {todoItems}
+            <AppBar position="static" color="secondary">
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{mr: 2}}
+                    >
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                        Todolists
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <Grid container style={{padding: '10px'}}>
+                    <AddItemForm addNewItem={addNewTodo}/>
+                </Grid>
+                <Grid container spacing={3}>
+                    {todoItems}
+                </Grid>
+            </Container>
         </div>
     );
 }

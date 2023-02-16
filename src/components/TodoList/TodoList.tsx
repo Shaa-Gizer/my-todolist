@@ -4,7 +4,7 @@ import {FilterType, TasksType, TodosType} from "../../redux/home-reducer";
 import {Tasks} from "./Tasks/Tasks";
 import {AddItemForm} from "./AddItemForm/AddItemForm";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
-import {Button, IconButton} from "@mui/material";
+import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 
 interface TodosPropsType {
@@ -37,53 +37,62 @@ export const TodoList: React.FC<TodosPropsType> = (props) => {
     }
 
     return (
-        <div className={tdStyle.todo}>
-            <div className={tdStyle.todoItem}>
-                <div className={tdStyle.titleBtn}>
-                    <h3 className={tdStyle.todoTitle}>
-                        <EditableSpan
-                            title={props.todos.todoTitle}
-                            onChangeEditableSpan={onChangeSetTodoTitleValue}
-                        />
-                    </h3>
-                    <IconButton>
-                        <Delete
-                            className={tdStyle.deleteTodoBtn}
-                            onClick={onClickDeleteTodo}
-                        />
-                    </IconButton>
+        <Grid item>
+            <Paper>
+                <div className={tdStyle.todo}>
+                    <div className={tdStyle.todoItem}>
+                        <div className={tdStyle.titleBtn}>
+                            <h3 className={tdStyle.todoTitle}>
+                                <EditableSpan
+                                    title={props.todos.todoTitle}
+                                    onChangeEditableSpan={onChangeSetTodoTitleValue}
+                                />
+                            </h3>
+                            <IconButton>
+                                <Delete
+                                    className={tdStyle.deleteTodoBtn}
+                                    onClick={onClickDeleteTodo}
+                                />
+                            </IconButton>
+                        </div>
+                        <div className={tdStyle.aif}>
+                            <AddItemForm
+                                addNewItem={addNewTask}
+                            />
+                        </div>
+                        <div className={tdStyle.tasks}>
+                            <Tasks
+                                todoId={props.todoId}
+                                tasks={props.tasks}
+                                removeTask={props.removeTask}
+                                setTaskStatus={props.setTaskStatus}
+                                setNewTaskTitleValue={props.setNewTaskTitleValue}
+                            />
+                        </div>
+                        <div className={tdStyle.filterBtns}>
+                            <Button
+                                variant={props.todos.filter === 'all' ? 'contained' : 'outlined'} color={'primary'}
+                                className={props.todos.filter === 'all' ? tdStyle.allBtn : tdStyle.defaultFilterBtn}
+                                onClick={onClickSetAllFilterValue}
+                            >All
+                            </Button>
+                            <Button
+                                variant={props.todos.filter === 'active' ? 'contained' : 'outlined'} color={'secondary'}
+                                className={props.todos.filter === 'active' ? tdStyle.activeBtn : tdStyle.defaultFilterBtn}
+                                onClick={onClickSetActiveFilterValue}
+                            >Active
+                            </Button>
+                            <Button
+                                variant={props.todos.filter === 'completed' ? 'contained' : 'outlined'}
+                                color={'success'}
+                                className={props.todos.filter === 'completed' ? tdStyle.completedBtn : tdStyle.defaultFilterBtn}
+                                onClick={onClickSetCompletedFilterValue}
+                            >Completed
+                            </Button>
+                        </div>
+                    </div>
                 </div>
-                <AddItemForm
-                    addNewItem={addNewTask}
-                />
-                <Tasks
-                    todoId={props.todoId}
-                    tasks={props.tasks}
-                    removeTask={props.removeTask}
-                    setTaskStatus={props.setTaskStatus}
-                    setNewTaskTitleValue={props.setNewTaskTitleValue}
-                />
-                <div className={tdStyle.filterBtns}>
-                    <Button
-                        variant={props.todos.filter === 'all' ? 'contained' : 'outlined'} color={'primary'}
-                        className={props.todos.filter === 'all' ? tdStyle.allBtn : tdStyle.defaultFilterBtn}
-                        onClick={onClickSetAllFilterValue}
-                    >All
-                    </Button>
-                    <Button
-                        variant={props.todos.filter === 'active' ? 'contained' : 'outlined'} color={'secondary'}
-                        className={props.todos.filter === 'active' ? tdStyle.activeBtn : tdStyle.defaultFilterBtn}
-                        onClick={onClickSetActiveFilterValue}
-                    >Active
-                    </Button>
-                    <Button
-                        variant={props.todos.filter === 'completed' ? 'contained' : 'outlined'} color={'success'}
-                        className={props.todos.filter === 'completed' ? tdStyle.completedBtn : tdStyle.defaultFilterBtn}
-                        onClick={onClickSetCompletedFilterValue}
-                    >Completed
-                    </Button>
-                </div>
-            </div>
-        </div>
+            </Paper>
+        </Grid>
     );
 };

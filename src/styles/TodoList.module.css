@@ -1,32 +1,32 @@
 .todo {
-    float: left;
-    border: 2px solid black;
-    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    /*background-color: #28A9A2;*/
 }
 
 .todoItem {
-    border: 2px solid black;
-    border-radius: 6px;
-    margin: 20px;
-    padding: 20px;
-    float: left;
+    margin: 15px;
+    padding: 10px;
     text-align: center;
+    /*background-color: #3BC1B6;*/
+    max-width: 100%;
+    max-height: max-content;
+    /*float: left;*/
+    /*text-align: center;*/
+}
+
+.titleBtn {
+    align-items: center;
 }
 
 .todoTitle {
     text-decoration: underline;
-    margin: auto;
-}
-
-.titleBtn {
-    display: flex
 }
 
 .deleteTodoBtn {
 }
 
 .filterBtns {
-    float: bottom;
 }
 
 .defaultFilterBtn {
@@ -39,4 +39,12 @@
 }
 
 .completedBtn {
+}
+
+.aif {
+    margin: 5px;
+}
+
+.tasks {
+    margin: 5px;
 }
