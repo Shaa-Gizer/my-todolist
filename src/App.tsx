@@ -13,34 +13,11 @@ export function App() {
     const todoId2 = v4();
     const todoId3 = v4();
 
-    const [todos, setTodos] = useState<TodosType[]>([
-        {todoId: todoId1, todoTitle: 'Learn', filter: 'all'},
-        {todoId: todoId2, todoTitle: 'Work', filter: 'all'},
-        {todoId: todoId3, todoTitle: 'Study', filter: 'all'}
-    ])
+    const [todos, setTodos] = useState<TodosType[]>([])
+    const todoId = v4();
 
     const [tasks, setTasks] = useState<TasksStateType>({
-        [todoId1]:
-            [
-                {taskId: v4(), taskTitle: 'HTML & CSS', isDone: true},
-                {taskId: v4(), taskTitle: 'JavaScript', isDone: true},
-                {taskId: v4(), taskTitle: 'React', isDone: false},
-                {taskId: v4(), taskTitle: 'Redux', isDone: false},
-                {taskId: v4(), taskTitle: 'GitBush', isDone: true}
-            ],
-        [todoId2]:
-            [
-                {taskId: v4(), taskTitle: 'Clothing store', isDone: false},
-                {taskId: v4(), taskTitle: 'Weather', isDone: false},
-                {taskId: v4(), taskTitle: 'Pizza', isDone: false},
-                {taskId: v4(), taskTitle: 'Interactive', isDone: false}
-            ],
-        [todoId3]:
-            [
-                {taskId: v4(), taskTitle: 'Redux', isDone: false},
-                {taskId: v4(), taskTitle: 'React', isDone: true},
-                {taskId: v4(), taskTitle: 'something', isDone: true}
-            ]
+        [todoId] : []
     })
 
     const addNewTask = (todoId: string, taskTitle: string) => {
