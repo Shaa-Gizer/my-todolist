@@ -6,6 +6,7 @@ import {AddItemForm} from "./AddItemForm/AddItemForm";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
+import {useDispatch, useSelector} from "react-redux";
 
 interface TodosPropsType {
     todoId: string,
@@ -21,6 +22,7 @@ interface TodosPropsType {
 }
 
 export const TodoList: React.FC<TodosPropsType> = (props) => {
+    const dispatch = useDispatch();
 
     const onClickDeleteTodo = () => {
         props.deleteTodo(props.todoId)

@@ -6,52 +6,51 @@ import {FilterType, TasksStateType, TodosType} from "./redux/home-reducer";
 import {v4} from "uuid";
 import {AppBar, Button, Container, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
+import {useSelector} from "react-redux";
 
 export function App() {
 
-    const todoId1 = v4();
-    const todoId2 = v4();
-    const todoId3 = v4();
+    const todos = useSelector(state => state.todos)
 
-    const [todos, setTodos] = useState<TodosType[]>([])
-    const todoId = v4();
+    // const [todos, setTodos] = useState<TodosType[]>([])
+    // const todoId = v4();
+    //
+    // const [tasks, setTasks] = useState<TasksStateType>({
+    //     [todoId] : []
+    // })
 
-    const [tasks, setTasks] = useState<TasksStateType>({
-        [todoId] : []
-    })
-
-    const addNewTask = (todoId: string, taskTitle: string) => {
-        setTasks({...tasks, [todoId]: [{taskId: v4(), taskTitle, isDone: false}, ...tasks[todoId]]});
-    }
-    const removeTask = (todoId: string, taskId: string) => {
-        setTasks({...tasks, [todoId]: tasks[todoId].filter(t => t.taskId !== taskId)});
-    }
-    const setTaskStatus = (todoId: string, taskId: string, isDone: boolean) => {
-        setTasks({...tasks, [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, isDone})});
-    }
-    const setTodoFilter = (todoId: string, filter: FilterType) => {
-        setTodos(todos.map(td => td.todoId !== todoId ? td : {...td, filter: filter}));
-    }
-    const deleteTodo = (todoId: string) => {
-        setTodos(todos.filter(td => td.todoId !== todoId));
-
-        delete (tasks[todoId]);
-        setTasks({...tasks});
-    }
-    const addNewTodo = (newTitle: string) => {
-        let newTodo: TodosType = {todoId: v4(), todoTitle: newTitle, filter: "all"}
-        setTodos([newTodo, ...todos]);
-        setTasks({...tasks, [newTodo.todoId]: []})
-    }
-    const setNewTaskTitleValue = (todoId: string, taskId: string, newTaskTitleValue: string) => {
-        setTasks({
-            ...tasks,
-            [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, taskTitle: newTaskTitleValue})
-        });
-    }
-    const setNewTodoTitleValue = (todoId: string, newTitleValue: string) => {
-        setTodos(todos.map(td => td.todoId !== todoId ? td : {...td, todoTitle: newTitleValue}))
-    }
+    // const addNewTask = (todoId: string, taskTitle: string) => {
+    //     setTasks({...tasks, [todoId]: [{taskId: v4(), taskTitle, isDone: false}, ...tasks[todoId]]});
+    // }
+    // const removeTask = (todoId: string, taskId: string) => {
+    //     setTasks({...tasks, [todoId]: tasks[todoId].filter(t => t.taskId !== taskId)});
+    // }
+    // const setTaskStatus = (todoId: string, taskId: string, isDone: boolean) => {
+    //     setTasks({...tasks, [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, isDone})});
+    // }
+    // const setTodoFilter = (todoId: string, filter: FilterType) => {
+    //     setTodos(todos.map(td => td.todoId !== todoId ? td : {...td, filter: filter}));
+    // }
+    // const deleteTodo = (todoId: string) => {
+    //     setTodos(todos.filter(td => td.todoId !== todoId));
+    //
+    //     delete (tasks[todoId]);
+    //     setTasks({...tasks});
+    // }
+    // const addNewTodo = (newTitle: string) => {
+    //     let newTodo: TodosType = {todoId: v4(), todoTitle: newTitle, filter: "all"}
+    //     setTodos([newTodo, ...todos]);
+    //     setTasks({...tasks, [newTodo.todoId]: []})
+    // }
+    // const setNewTaskTitleValue = (todoId: string, taskId: string, newTaskTitleValue: string) => {
+    //     setTasks({
+    //         ...tasks,
+    //         [todoId]: tasks[todoId].map(t => t.taskId !== taskId ? t : {...t, taskTitle: newTaskTitleValue})
+    //     });
+    // }
+    // const setNewTodoTitleValue = (todoId: string, newTitleValue: string) => {
+    //     setTodos(todos.map(td => td.todoId !== todoId ? td : {...td, todoTitle: newTitleValue}))
+    // }
 
     const todoItems = todos.map(td => {
 
