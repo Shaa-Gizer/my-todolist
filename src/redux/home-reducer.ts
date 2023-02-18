@@ -140,7 +140,9 @@ export const homeReducer = (state = initState, action: ActionsType): InitStateTy
             }
 
         case DELETE_TODO:
-            break;
+            return {
+                ...state, todos: state.todos.filter(td => td.todoId !== action.todoId)
+            }
 
         case ADD_NEW_TODO:
             let newTodo: TodosType = {todoId: v4(), todoTitle: action.newTitle, filter: "all"}
@@ -171,42 +173,42 @@ export const homeReducer = (state = initState, action: ActionsType): InitStateTy
     }
 }
 
-const onClickAddNewTask = (todoId: string, taskTitle: string): AddNewTaskActionCreator => ({
+export const addNewTask = (todoId: string, taskTitle: string): AddNewTaskActionCreator => ({
     type: ADD_NEW_TASK,
     todoId,
     taskTitle
 });
-const onClickRemoveTask = (todoId: string, taskId: string): RemoveTaskActionCreator => ({
+export const removeTask = (todoId: string, taskId: string): RemoveTaskActionCreator => ({
     type: REMOVE_TASK,
     todoId,
     taskId
 });
-const onChangeSetTaskStatus = (todoId: string, taskId: string, isDone: boolean): SetTaskStatusActionCreator => ({
+export const setTaskStatus = (todoId: string, taskId: string, isDone: boolean): SetTaskStatusActionCreator => ({
     type: SET_TASK_STATUS,
     todoId,
     taskId,
     isDone
 })
-const onClickSetTodoFilter = (todoId: string, filter: FilterType): SetTodoFilterActionCreator => ({
+export const setTodoFilter = (todoId: string, filter: FilterType): SetTodoFilterActionCreator => ({
     type: SET_TODO_FILTER,
     todoId,
     filter
 })
-const onClickDeleteTodo = (todoId: string): DeleteTodoActionCreator => ({
+export const deleteTodo = (todoId: string): DeleteTodoActionCreator => ({
     type: DELETE_TODO,
     todoId
 })
-const onClickAddNewTodo = (newTitle: string): AddNewTodoActionCreator => ({
+export const addNewTodo = (newTitle: string): AddNewTodoActionCreator => ({
     type: ADD_NEW_TODO,
     newTitle
 })
-const onSetNewTaskTitleValue = (todoId: string, taskId: string, newTitleValue: string): SetNewTaskTitleValueActionCreator => ({
+export const setNewTaskTitleValue = (todoId: string, taskId: string, newTitleValue: string): SetNewTaskTitleValueActionCreator => ({
     type: SET_NEW_TASK_TITLE_VALUE,
     todoId,
     taskId,
     newTitleValue
 })
-const onSetNewTodoTitleValue = (todoId: string, newTitleValue: string): SetNewTodoTitleValueActionCreator => ({
+export const setNewTodoTitleValue = (todoId: string, newTitleValue: string): SetNewTodoTitleValueActionCreator => ({
     type: SET_NEW_TODO_TITLE_VALUE,
     todoId,
     newTitleValue

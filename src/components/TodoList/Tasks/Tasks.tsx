@@ -1,31 +1,30 @@
 import React, {ChangeEvent} from 'react';
 import tStyle from '../../../styles/Tasks.module.css'
-import {TasksType} from "../../../redux/home-reducer";
+import {removeTask, setNewTaskTitleValue, setTaskStatus, TasksType} from "../../../redux/home-reducer";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
+import {useDispatch} from "react-redux";
 
 interface TasksPropsType {
     todoId: string,
-    tasks: TasksType[],
-    removeTask: (todoId: string, taskId: string) => void,
-    setTaskStatus: (todoId: string, taskId: string, isDone: boolean) => void,
-    setNewTaskTitleValue: (todoId: string, taskId: string, newTitleValue: string) => void
+    tasks: TasksType[]
 }
 
 export const Tasks: React.FC<TasksPropsType> = (props) => {
+    const dispatch = useDispatch();
 
     const taskItems = props.tasks.length ?
         props.tasks.map(t => {
 
             const onClickRemoveTask = () => {
-                props.removeTask(props.todoId, t.taskId)
+                dispatch(removeTask(props.todoId, t.taskId))
             }
             const onChangeSetTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-                props.setTaskStatus(props.todoId, t.taskId, e.currentTarget.checked)
+                dispatch(setTaskStatus(props.todoId, t.taskId, e.currentTarget.checked))
             }
             const onChangeEditableSpan = (newTaskTitleValue: string) => {
-                props.setNewTaskTitleValue(props.todoId, t.taskId, newTaskTitleValue)
+                dispatch(setNewTaskTitleValue(props.todoId, t.taskId, newTaskTitleValue))
             }
 
             return (

@@ -1,41 +1,41 @@
 import React from 'react';
 import tdStyle from '../../styles/TodoList.module.css'
-import {FilterType, TasksType, TodosType} from "../../redux/home-reducer";
+import {
+    addNewTask,
+    deleteTodo,
+    setNewTodoTitleValue,
+    setTodoFilter,
+    TasksType,
+    TodosType
+} from "../../redux/home-reducer";
 import {Tasks} from "./Tasks/Tasks";
 import {AddItemForm} from "./AddItemForm/AddItemForm";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 interface TodosPropsType {
     todoId: string,
     todos: TodosType,
-    tasks: TasksType[],
-    addNewTask: (todoId: string, taskTitle: string) => void,
-    removeTask: (todoId: string, taskId: string) => void,
-    setTaskStatus: (todoId: string, taskId: string, isDone: boolean) => void,
-    setTodoFilter: (todoId: string, filter: FilterType) => void,
-    deleteTodo: (todoId: string) => void,
-    setNewTaskTitleValue: (todoId: string, taskId: string, newTitleValue: string) => void,
-    setNewTodoTitleValue: (todoId: string, newTitleValue: string) => void
+    tasks: TasksType[]
 }
 
 export const TodoList: React.FC<TodosPropsType> = (props) => {
     const dispatch = useDispatch();
 
     const onClickDeleteTodo = () => {
-        props.deleteTodo(props.todoId)
+        dispatch(deleteTodo(props.todoId))
     }
-    const onClickSetAllFilterValue = () => props.setTodoFilter(props.todoId, 'all')
-    const onClickSetActiveFilterValue = () => props.setTodoFilter(props.todoId, 'active')
-    const onClickSetCompletedFilterValue = () => props.setTodoFilter(props.todoId, 'completed')
+    const onClickSetAllFilterValue = () => dispatch(setTodoFilter(props.todoId, 'all'))
+    const onClickSetActiveFilterValue = () => dispatch(setTodoFilter(props.todoId, 'active'))
+    const onClickSetCompletedFilterValue = () => dispatch(setTodoFilter(props.todoId, 'completed'))
 
-    const addNewTask = (newTaskTitle: string) => {
-        props.addNewTask(props.todoId, newTaskTitle)
+    const addNewTaskItem = (newTaskTitle: string) => {
+        dispatch(addNewTask(props.todoId, newTaskTitle))
     }
     const onChangeSetTodoTitleValue = (newTodoTitleValue: string) => {
-        props.setNewTodoTitleValue(props.todoId, newTodoTitleValue)
+        dispatch(setNewTodoTitleValue(props.todoId, newTodoTitleValue))
     }
 
     return (
@@ -59,16 +59,13 @@ export const TodoList: React.FC<TodosPropsType> = (props) => {
                         </div>
                         <div className={tdStyle.aif}>
                             <AddItemForm
-                                addNewItem={addNewTask}
+                                addNewItem={addNewTaskItem}
                             />
                         </div>
                         <div className={tdStyle.tasks}>
                             <Tasks
                                 todoId={props.todoId}
                                 tasks={props.tasks}
-                                removeTask={props.removeTask}
-                                setTaskStatus={props.setTaskStatus}
-                                setNewTaskTitleValue={props.setNewTaskTitleValue}
                             />
                         </div>
                         <div className={tdStyle.filterBtns}>

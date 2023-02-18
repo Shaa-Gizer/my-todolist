@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import {TodoList} from "./components/TodoList/TodoList";
 import {AddItemForm} from "./components/TodoList/AddItemForm/AddItemForm";
-import {FilterType, TasksStateType, TodosType} from "./redux/home-reducer";
-import {v4} from "uuid";
-import {AppBar, Button, Container, Grid, IconButton, Toolbar, Typography} from "@mui/material";
-import {Menu} from "@mui/icons-material";
-import {useSelector} from "react-redux";
+import {Container, Grid} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+import Header from "./components/Header/Header";
+import {InitStateType, addNewTodo, TasksStateType, TodosType} from "./redux/home-reducer";
 
 export function App() {
 
-    const todos = useSelector(state => state.todos)
+    const todos = useSelector((state: InitStateType): TodosType[] => state.todos)
+    const tasks = useSelector((state: InitStateType): TasksStateType => state.tasks)
+    const dispatch = useDispatch()
 
     // const [todos, setTodos] = useState<TodosType[]>([])
     // const todoId = v4();
@@ -72,44 +73,21 @@ export function App() {
                 todoId={td.todoId}
                 todos={td}
                 tasks={filteredTasks}
-                addNewTask={addNewTask}
-                removeTask={removeTask}
-                setTaskStatus={setTaskStatus}
-                setTodoFilter={setTodoFilter}
-                deleteTodo={deleteTodo}
-                setNewTaskTitleValue={setNewTaskTitleValue}
-                setNewTodoTitleValue={setNewTodoTitleValue}
             />
         )
     })
 
     return (
         <div className="App">
-            <AppBar position="static" color="secondary">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{mr: 2}}
-                    >
-                        <Menu/>
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                        Todolists
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                </Toolbar>
-            </AppBar>
-            <Container fixed>
-                <Grid container style={{padding: '10px'}}>
-                    <AddItemForm addNewItem={addNewTodo}/>
-                </Grid>
-                <Grid container spacing={3}>
-                    {todoItems}
-                </Grid>
-            </Container>
+            <Header />
+            {/*<Container fixed>*/}
+            {/*    <Grid container style={{padding: '10px'}}>*/}
+            {/*        <AddItemForm addNewItem={(newTitle) => dispatch(addNewTodo(newTitle))}/>*/}
+            {/*    </Grid>*/}
+            {/*    <Grid container spacing={3}>*/}
+            {/*        {todoItems}*/}
+            {/*    </Grid>*/}
+            {/*</Container>*/}
         </div>
     );
 }
