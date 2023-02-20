@@ -1,8 +1,12 @@
 import {combineReducers, createStore} from "redux";
-import {homeReducer} from "./home-reducer";
+import {todosReducer} from "./reducers/todosReducer";
+import {tasksReducer} from "./reducers/tasksReducer";
 
-const home = combineReducers({
-    home: homeReducer
+const rootReducer = combineReducers({
+    todos: todosReducer,
+    tasks: tasksReducer
 })
 
-export const store = createStore(home)
+export const store = createStore(rootReducer);
+
+export type RootState = ReturnType<typeof rootReducer>

@@ -1,19 +1,15 @@
 import React from 'react';
 import tdStyle from '../../styles/TodoList.module.css'
-import {
-    addNewTask,
-    deleteTodo,
-    setNewTodoTitleValue,
-    setTodoFilter,
-    TasksType,
-    TodosType
-} from "../../redux/home-reducer";
 import {Tasks} from "./Tasks/Tasks";
 import {AddItemForm} from "./AddItemForm/AddItemForm";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
+import {TasksType} from "../../types/taskTypes";
+import {deleteTodo, setNewTodoTitleValue, setTodoFilter} from "../../redux/reducers/todosReducer";
+import {addNewTask} from "../../redux/reducers/tasksReducer";
+import {TodosType} from "../../types/todoTypes";
 
 interface TodosPropsType {
     todoId: string,

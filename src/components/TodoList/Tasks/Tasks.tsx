@@ -1,10 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import tStyle from '../../../styles/Tasks.module.css'
-import {removeTask, setNewTaskTitleValue, setTaskStatus, TasksType} from "../../../redux/home-reducer";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
+import {TasksType} from "../../../types/taskTypes";
+import {removeTask, setNewTaskTitleValue, setTaskStatus} from "../../../redux/reducers/tasksReducer";
 
 interface TasksPropsType {
     todoId: string,
