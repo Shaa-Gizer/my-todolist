@@ -15,7 +15,7 @@ interface TasksPropsType {
 export const Tasks: React.FC<TasksPropsType> = (props) => {
     const dispatch = useDispatch();
 
-    const taskItems = props.tasks.length ?
+    const taskItems = props.tasks?.length ?
         props.tasks.map(t => {
 
             const onClickRemoveTask = () => {

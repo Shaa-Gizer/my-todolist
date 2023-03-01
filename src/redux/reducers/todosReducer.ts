@@ -27,8 +27,8 @@ export const todosReducer = (state = initTodosState, action: TodoActionCreatorsT
             }
         case TodoActionsType.ADD_NEW_TODO:
             return {
-                ...state, newTodo: {...state, todoId: v4(), todoTitle: action.newTitle, filter: "all"},
-                todos: [state.newTodo, ...state.todos],
+                ...state,
+                todos: [{todoId: v4(), todoTitle: action.newTitle, filter: "all"}, ...state.todos],
                 tasks: {...state.tasks, [state.newTodo.todoId]: []}
             }
         case TodoActionsType.SET_NEW_TODO_TITLE_VALUE:
