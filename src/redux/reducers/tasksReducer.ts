@@ -23,7 +23,7 @@ let initTasksState: InitTasksStateType = {
 export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsType): InitTasksStateType => {
     switch (action.type) {
         case TaskActionsType.ADD_NEW_TASK:
-            console.log('reducer: ', action.todoId, )
+            console.log('reducer: ', action.todoId,)
             return {
                 ...state,
                 tasks: {
@@ -32,7 +32,8 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
                         taskId: v4(),
                         taskTitle: action.taskTitle,
                         isDone: false
-                    }], ...state.tasks[action.todoId] && state.tasks[action.todoId]
+                    }]
+                    // , ...state.tasks[action.todoId] && state.tasks[action.todoId]
                 }
             }
         case TaskActionsType.REMOVE_TASK:
@@ -48,20 +49,17 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
                 ...state,
                 tasks: {
                     ...state.tasks,
-                    [action.todoId]: state.tasks[action.todoId].map(t => t.taskId !== action.taskId ? t : {
-                        ...t,
-                        isDone: action.isDone
-                    })
+                    [action.todoId]: state.tasks[action.todoId].map(t => t.taskId !== action.taskId ? t :
+                        {...t, isDone: action.isDone})
                 }
             }
         case TaskActionsType.SET_NEW_TASK_TITLE_VALUE:
             return {
                 ...state, tasks: {
                     ...state.tasks,
-                    [action.todoId]: state.tasks[action.todoId].map(t => t.taskId !== action.taskId ? t : {
-                        ...t,
-                        taskTitle: action.newTitleValue
-                    })
+                    [action.todoId]: state.tasks[action.todoId].map(t => t.taskId !== action.taskId ? t :
+                        {...t, taskTitle: action.newTitleValue}
+                    )
                 }
             }
         default:
