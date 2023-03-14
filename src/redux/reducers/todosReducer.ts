@@ -9,8 +9,7 @@ import {
 
 let initTodosState: InitTodosStateType = {
     todos: [],
-    newTodo: {todoId: v4(), todoTitle: '', filter: "all"},
-    tasks: {[v4()]: []}
+    // tasks: {[v4()]: []}
 }
 
 
@@ -29,7 +28,7 @@ export const todosReducer = (state = initTodosState, action: TodoActionCreatorsT
             return {
                 ...state,
                 todos: [{todoId: v4(), todoTitle: action.newTitle, filter: "all"}, ...state.todos],
-                tasks: {...state.tasks, [state.newTodo.todoId]: []}
+                // tasks: {...state.tasks, [state.todos.todoId]: []}
             }
         case TodoActionsType.SET_NEW_TODO_TITLE_VALUE:
             return {

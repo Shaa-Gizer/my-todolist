@@ -2,8 +2,7 @@ import {TasksStateType} from "./taskTypes";
 
 export interface InitTodosStateType {
     todos: TodosType[],
-    newTodo: TodosType,
-    tasks: TasksStateType
+    // tasks: TasksStateType
 }
 
 export interface TodosType {

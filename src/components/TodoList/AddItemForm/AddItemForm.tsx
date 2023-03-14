@@ -14,13 +14,17 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
 
     const onChangeSetNewTaskTitle = (e: ChangeEvent<HTMLInputElement>) => {
         error && setError(false)
+        console.log(newTaskTitle);
         setNewTaskTitle(e.currentTarget.value)
     }
     const onClickAddNewItem = () => {
+        console.log('Im here')
         newTaskTitle.trim() ? props.addNewItem(newTaskTitle) : setError(true);
+        console.log('onClickAddNewItem: ', newTaskTitle);
         setNewTaskTitle('')
     }
     const onKeyDownAddNewTask = (e: KeyboardEvent<HTMLInputElement>) => {
+        console.log('Click event')
         e.key === 'Enter' && onClickAddNewItem()
     }
     const onBlurSetErrorFalse = () => setError(false);
