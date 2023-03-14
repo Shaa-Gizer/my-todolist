@@ -23,11 +23,6 @@ export interface TasksStateType {
 
 export type FilterType = 'all' | 'active' | 'completed'
 
-
-export interface RootPageType {
-
-}
-
 interface AddNewTaskActionCreator {
     type: typeof ADD_NEW_TASK,
     taskTitle: string,
@@ -145,10 +140,9 @@ export const homeReducer = (state = initState, action: ActionsType): InitStateTy
             }
 
         case ADD_NEW_TODO:
-            let newTodo: TodosType = {todoId: v4(), todoTitle: action.newTitle, filter: "all"}
             return {
-                ...state, todos: [newTodo, ...state.todos],
-                tasks: {...state.tasks, [newTodo.todoId]: []}
+                ...state, todos: {todoId: v4(), todoTitle: action.newTitle, filter: "all"}, ...state.todos,
+                tasks: {...state.tasks, [action.todoId]: []}
             }
 
         case SET_NEW_TASK_TITLE_VALUE:
