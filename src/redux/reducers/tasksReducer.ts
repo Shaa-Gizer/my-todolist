@@ -1,13 +1,13 @@
 import {v4} from "uuid";
-import {InitTasksStateType, TasksStateType} from "../../types/taskTypes";
 import {
+    InitTasksStateType,
     AddNewTaskActionCreatorType,
     RemoveTaskActionCreatorType,
     SetNewTaskTitleValueActionCreatorType,
     SetTaskStatusActionCreatorType,
-    TaskActionCreatorsType, TaskActionsType
-} from "../../types/actionCreators/taskActionCreatorTypes";
-
+    TaskActionCreatorsType,
+    TaskActionsType
+} from "@types";
 let initTasksState: InitTasksStateType = {
     tasks: {
         // [v4()]: [
@@ -23,7 +23,7 @@ let initTasksState: InitTasksStateType = {
 export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsType): InitTasksStateType => {
     switch (action.type) {
         case TaskActionsType.ADD_NEW_TASK:
-            console.log('reducer: ', action.todoId,)
+
             return {
                 ...state,
                 tasks: {
@@ -33,7 +33,7 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
                         taskTitle: action.taskTitle,
                         isDone: false
                     }]
-                    // , ...state.tasks[action.todoId] && state.tasks[action.todoId]
+                        // (state.tasks[action.todoId] !== undefined) && ...state.tasks[action.todoId]]
                 }
             }
         case TaskActionsType.REMOVE_TASK:

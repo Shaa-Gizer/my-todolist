@@ -1,8 +1,5 @@
-import {TasksStateType} from "./taskTypes";
-
 export interface InitTodosStateType {
-    todos: TodosType[],
-    // tasks: TasksStateType
+    todos: TodosType[]
 }
 
 export interface TodosType {
@@ -11,4 +8,9 @@ export interface TodosType {
     filter: FilterType
 }
 
-export type FilterType = 'all' | 'active' | 'completed'
+
+export enum FilterType {
+    All = 'all',
+    Active = 'active',
+    Completed = 'completed',
+}

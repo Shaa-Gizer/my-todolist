@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import Header from "./components/Header/Header";
 import {addNewTodo} from "./redux/reducers/todosReducer";
 import {useTypedSelector} from "./hooks/useTypedSelector";
+import {filteredTasks} from "@helpers";
 
 export function App() {
 
@@ -14,29 +15,11 @@ export function App() {
     const tasks = useTypedSelector(state => state.tasks.tasks)
     const dispatch = useDispatch()
 
-    const todoItems = Array.isArray(todos) ? todos?.map(td => {
-
-        let filteredTasks;
-        switch (td.filter) {
-            case "active":
-                filteredTasks = tasks[td.todoId].filter(t => !t.isDone);
-                break;
-            case "completed":
-                filteredTasks = tasks[td.todoId].filter(t => t.isDone);
-                break;
-            default:
-                filteredTasks = tasks[td.todoId];
-        }
-
-        return (
-            <TodoList
-                key={td.todoId}
-                todoId={td.todoId}
-                todos={td}
-                tasks={filteredTasks}
-            />
-        )
-    }) : null
+    const todoItems = Array.isArray(todos) ? todos?.map(td => <TodoList
+            key={td.todoId}
+            todoId={td.todoId}
+            todos={td}
+            tasks={filteredTasks(tasks, td)}/>) : null
 
     return (
         <div className="App">

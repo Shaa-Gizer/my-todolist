@@ -6,10 +6,9 @@ import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
-import {TasksType} from "../../types/taskTypes";
+import {TasksType, FilterType, TodosType} from "@types";
 import {deleteTodo, setNewTodoTitleValue, setTodoFilter} from "../../redux/reducers/todosReducer";
 import {addNewTask} from "../../redux/reducers/tasksReducer";
-import {TodosType} from "../../types/todoTypes";
 
 interface TodosPropsType {
     todoId: string,
@@ -23,9 +22,9 @@ export const TodoList: React.FC<TodosPropsType> = (props) => {
     const onClickDeleteTodo = () => {
         dispatch(deleteTodo(props.todoId))
     }
-    const onClickSetAllFilterValue = () => dispatch(setTodoFilter(props.todoId, 'all'))
-    const onClickSetActiveFilterValue = () => dispatch(setTodoFilter(props.todoId, 'active'))
-    const onClickSetCompletedFilterValue = () => dispatch(setTodoFilter(props.todoId, 'completed'))
+    const onClickSetAllFilterValue = () => dispatch(setTodoFilter(props.todoId, FilterType.All))
+    const onClickSetActiveFilterValue = () => dispatch(setTodoFilter(props.todoId, FilterType.Active))
+    const onClickSetCompletedFilterValue = () => dispatch(setTodoFilter(props.todoId, FilterType.Completed))
 
     const addNewTaskItem = (newTaskTitle: string) => {
         dispatch(addNewTask(props.todoId, newTaskTitle))

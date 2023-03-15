@@ -1,11 +1,14 @@
 import {v4} from "uuid";
-import {FilterType, InitTodosStateType} from "../../types/todoTypes";
 import {
+    FilterType,
+    InitTodosStateType,
     AddNewTodoActionCreatorType,
     DeleteTodoActionCreatorType,
     SetNewTodoTitleValueActionCreatorType,
-    SetTodoFilterActionCreatorType, TodoActionCreatorsType, TodoActionsType
-} from "../../types/actionCreators/todoActionCreatorTypes";
+    SetTodoFilterActionCreatorType,
+    TodoActionCreatorsType,
+    TodoActionsType
+} from "@types";
 
 let initTodosState: InitTodosStateType = {
     todos: [],
@@ -27,7 +30,7 @@ export const todosReducer = (state = initTodosState, action: TodoActionCreatorsT
         case TodoActionsType.ADD_NEW_TODO:
             return {
                 ...state,
-                todos: [{todoId: v4(), todoTitle: action.newTitle, filter: "all"}, ...state.todos],
+                todos: [{todoId: v4(), todoTitle: action.newTitle, filter: FilterType.All}, ...state.todos],
                 // tasks: {...state.tasks, [state.todos.todoId]: []}
             }
         case TodoActionsType.SET_NEW_TODO_TITLE_VALUE:
