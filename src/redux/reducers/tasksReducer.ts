@@ -1,23 +1,14 @@
-import {v4} from "uuid";
 import {
-    InitTasksStateType,
     AddNewTaskActionCreatorType,
-    RemoveTaskActionCreatorType,
-    SetNewTaskTitleValueActionCreatorType,
-    SetTaskStatusActionCreatorType,
+    InitTasksStateType,
+    RemoveTaskActionCreatorType, SetNewTaskTitleValueActionCreatorType, SetTaskStatusActionCreatorType,
     TaskActionCreatorsType,
     TaskActionsType
-} from "@types";
+} from "../../types";
+import {v4} from "uuid";
+
 let initTasksState: InitTasksStateType = {
-    tasks: {
-        // [v4()]: [
-        //     {
-        //         taskId: v4(),
-        //         taskTitle: '',
-        //         isDone: false
-        //     }
-        // ]
-    }
+    tasks: {}
 }
 
 export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsType): InitTasksStateType => {
@@ -32,8 +23,8 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
                         taskId: v4(),
                         taskTitle: action.taskTitle,
                         isDone: false
-                    }]
-                        // (state.tasks[action.todoId] !== undefined) && ...state.tasks[action.todoId]]
+                    }, ...(state.tasks?.[action.todoId] ? state.tasks[action.todoId] : [])]
+
                 }
             }
         case TaskActionsType.REMOVE_TASK:

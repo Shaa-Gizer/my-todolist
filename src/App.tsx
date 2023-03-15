@@ -7,7 +7,7 @@ import {useDispatch} from "react-redux";
 import Header from "./components/Header/Header";
 import {addNewTodo} from "./redux/reducers/todosReducer";
 import {useTypedSelector} from "./hooks/useTypedSelector";
-import {filteredTasks} from "@helpers";
+import {filteredTasks} from "./helpers";
 
 export function App() {
 
@@ -16,10 +16,10 @@ export function App() {
     const dispatch = useDispatch()
 
     const todoItems = Array.isArray(todos) ? todos?.map(td => <TodoList
-            key={td.todoId}
-            todoId={td.todoId}
-            todos={td}
-            tasks={filteredTasks(tasks, td)}/>) : null
+        key={td.todoId}
+        todoId={td.todoId}
+        todos={td}
+        tasks={filteredTasks(tasks, td)}/>) : null;
 
     return (
         <div className="App">

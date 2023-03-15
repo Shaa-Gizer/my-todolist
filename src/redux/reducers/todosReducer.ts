@@ -1,14 +1,12 @@
-import {v4} from "uuid";
 import {
-    FilterType,
-    InitTodosStateType,
     AddNewTodoActionCreatorType,
     DeleteTodoActionCreatorType,
-    SetNewTodoTitleValueActionCreatorType,
-    SetTodoFilterActionCreatorType,
+    FilterType,
+    InitTodosStateType, SetNewTodoTitleValueActionCreatorType, SetTodoFilterActionCreatorType,
     TodoActionCreatorsType,
     TodoActionsType
-} from "@types";
+} from "../../types";
+import {v4} from "uuid";
 
 let initTodosState: InitTodosStateType = {
     todos: [],

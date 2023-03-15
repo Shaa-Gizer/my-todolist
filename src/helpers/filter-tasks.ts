@@ -1,4 +1,5 @@
-import {FilterType, TodosType, TasksStateType} from "@types";
+import {FilterType, TasksStateType, TodosType} from "../types";
+
 
 export const filteredTasks = (tasks: TasksStateType, td: TodosType) => {
     switch (td.filter) {

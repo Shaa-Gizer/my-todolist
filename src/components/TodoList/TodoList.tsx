@@ -6,9 +6,9 @@ import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
-import {TasksType, FilterType, TodosType} from "@types";
 import {deleteTodo, setNewTodoTitleValue, setTodoFilter} from "../../redux/reducers/todosReducer";
 import {addNewTask} from "../../redux/reducers/tasksReducer";
+import {FilterType, TasksType, TodosType} from "../../types";
 
 interface TodosPropsType {
     todoId: string,
