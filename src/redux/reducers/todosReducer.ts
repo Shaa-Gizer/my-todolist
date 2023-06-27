@@ -40,7 +40,7 @@ export const todosReducer = (state = initTodosState, action: TodoActionCreatorsT
                 })
             }
         default:
-            return state
+            throw new Error('I dont understand this action type')
     }
 }
 
