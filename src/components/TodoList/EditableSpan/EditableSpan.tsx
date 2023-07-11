@@ -8,6 +8,8 @@ interface EditableSpanPropsType {
 }
 
 export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
+    console.log('EDITABLE-SPAN')
+
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)

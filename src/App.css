@@ -2,14 +2,18 @@
 }
 
 .App {
+  margin: 0 100px;
   padding: 20px;
   display: flex;
   justify-content: flex-start;
   flex-flow: row wrap;
   font-family: Roboto, sans-serif;
-  /*background-color: #1B9892;*/
 }
 
 .App > div {
   margin: 10px;
+}
+
+.aif {
+  margin-top: 30px;
 }

@@ -4,7 +4,7 @@ import {Menu} from "@mui/icons-material";
 
 const Header = () => {
     return (
-        <AppBar position="static" color="secondary">
+        <AppBar position="fixed" color="secondary">
             <Toolbar>
                 <IconButton
                     size="large"

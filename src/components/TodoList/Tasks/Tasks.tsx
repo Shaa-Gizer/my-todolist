@@ -4,33 +4,36 @@ import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
-import {TasksType} from "../../../types/taskTypes";
-import {removeTask, setNewTaskTitleValue, setTaskStatus} from "../../../redux/reducers/tasksReducer";
+import {TaskType} from "../../../types";
 
 interface TasksPropsType {
     todoId: string,
-    tasks: TasksType[]
+    tasks: TaskType[],
+    removeTask: (todoId: string, taskId: string) => void,
+    setNewTaskStatus: (todoId: string, taskId: string, isDone: boolean) => void,
+    setNewTaskTitleValue: (todoId: string, taskId: string, newTaskTitleValue: string) => void
 }
 
 export const Tasks: React.FC<TasksPropsType> = (props) => {
-    const dispatch = useDispatch();
+    console.log('TASKS')
 
     const taskItems = props.tasks?.length ?
         props.tasks.map(t => {
 
             const onClickRemoveTask = () => {
-                dispatch(removeTask(props.todoId, t.taskId))
+                props.removeTask(props.todoId, t.taskId)
             }
             const onChangeSetTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-                dispatch(setTaskStatus(props.todoId, t.taskId, e.currentTarget.checked))
+                props.setNewTaskStatus(props.todoId, t.taskId, e.currentTarget.checked)
             }
             const onChangeEditableSpan = (newTaskTitleValue: string) => {
-                dispatch(setNewTaskTitleValue(props.todoId, t.taskId, newTaskTitleValue))
+                props.setNewTaskTitleValue(props.todoId, t.taskId, newTaskTitleValue)
             }
 
             return (
                 <div key={t.taskId}
-                     className={t.isDone ? tStyle.taskIsDone : tStyle.tasksList}>
+                     className={t.isDone ? `${tStyle.tasksList} ${tStyle.taskIsDone}` : tStyle.tasksList}
+                >
                     <Checkbox
                         className={tStyle.taskCheck}
                         checked={t.isDone}
@@ -40,16 +43,16 @@ export const Tasks: React.FC<TasksPropsType> = (props) => {
                         title={t.taskTitle}
                         onChangeEditableSpan={onChangeEditableSpan}
                     />
-                    <IconButton className={tStyle.deleteTaskBtn}>
-                        <Delete className={tStyle.deleteTaskBtn}
-                                onClick={onClickRemoveTask}/>
+                    <IconButton className={tStyle.deleteTaskBtn}
+                                onClick={onClickRemoveTask}>
+                        <Delete className={tStyle.deleteTaskBtn}/>
                     </IconButton>
                 </div>
             )
         }) : <span className={tStyle.errorMessage}>No tasks!</span>
 
     return (
-        <div>
+        <div className={tStyle.tasks}>
             {taskItems}
         </div>
     );

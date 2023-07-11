@@ -1,4 +1,4 @@
-import {TaskActionCreatorsType} from "./taskActionCreatorTypes";
-import {TodoActionCreatorsType} from "./todoActionCreatorTypes";
+import {TasksActionCreatorsType} from "./tasksActionCreatorTypes";
+import {TodoActionCreatorsType} from "./todosActionCreatorTypes";
 
-export type ActionsType = TaskActionCreatorsType | TodoActionCreatorsType
+export type ActionsType = TasksActionCreatorsType | TodoActionCreatorsType

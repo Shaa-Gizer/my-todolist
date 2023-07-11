@@ -1,38 +1,68 @@
 import {
     AddNewTaskActionCreatorType,
-    RemoveTaskActionCreatorType, SetNewTaskTitleValueActionCreatorType, SetTaskStatusActionCreatorType,
-    TaskActionCreatorsType,
-    TaskActionsType,
-    TasksStateType
+    RemoveTaskActionCreatorType,
+    SetNewTaskTitleValueActionCreatorType,
+    SetTaskStatusActionCreatorType,
+    TasksActionCreatorsType,
+    TasksActionTypes,
+    TasksStateType,
+    TaskType,
+    TodoActionsType
 } from "../../../types";
+import {v1} from "uuid";
 
-export const tasksReducer = (state: TasksStateType, action: TaskActionCreatorsType): TasksStateType => {
+const initialState: TasksStateType = {}
+
+export const tasksReducer = (state: TasksStateType = initialState, action: TasksActionCreatorsType): TasksStateType => {
     switch (action.type) {
-        case TaskActionsType.ADD_NEW_TASK: {
+        case TasksActionTypes.ADD_NEW_TASK: {
             const stateCopy = {...state};
+            const tasks = stateCopy[action.todoId];
+            const newTask: TaskType = {taskId: v1(), taskTitle: action.taskTitle, isDone: false}
+            const newTasks = [newTask, ...tasks]
+            stateCopy[action.todoId] = newTasks
             return stateCopy
         }
-        case TaskActionsType.REMOVE_TASK: {
+        case TasksActionTypes.REMOVE_TASK: {
             const stateCopy = {...state};
             const tasks = state[action.todoId];
             const filteredTasks = tasks.filter(t => t.taskId !== action.taskId);
             stateCopy[action.todoId] = filteredTasks;
             return stateCopy;
         }
-        case TaskActionsType.SET_NEW_TASK_TITLE_VALUE: {
-            return {...state}
+        case TasksActionTypes.SET_NEW_TASK_TITLE_VALUE: {
+            const stateCopy = {...state};
+            let tasks = stateCopy[action.todoId]
+            let task = tasks.find(t => t.taskId === action.taskId);
+            if (task) {
+                task.taskTitle = action.newTitleValue
+            }
+            return {...stateCopy}
         }
-        case TaskActionsType.SET_TASK_STATUS: {
-            return {...state}
+        case TasksActionTypes.SET_TASK_STATUS: {
+            const stateCopy = {...state};
+            let tasks = stateCopy[action.todoId]
+            stateCopy[action.todoId] = tasks.map(t => t.taskId === action.taskId ? {...t, isDone: action.isDone} : t)
+            return {...stateCopy}
+        }
+        case TodoActionsType.ADD_NEW_TODO: {
+            const stateCopy = {...state}
+            stateCopy[action.todoID] = []
+            return {...stateCopy}
+        }
+        case TodoActionsType.DELETE_TODO: {
+            const stateCopy = {...state}
+            delete stateCopy[action.todoId]
+            return {...stateCopy}
         }
         default:
-            throw new Error('I dont understand this action type')
+            return state;
     }
 }
 
 export const addNewTaskAC = (todoId: string, newTitle: string): AddNewTaskActionCreatorType => {
     return {
-        type: TaskActionsType.ADD_NEW_TASK,
+        type: TasksActionTypes.ADD_NEW_TASK,
         todoId: todoId,
         taskTitle: newTitle
     }
@@ -40,24 +70,24 @@ export const addNewTaskAC = (todoId: string, newTitle: string): AddNewTaskAction
 
 export const removeTaskAC = (todoId: string, taskID: string): RemoveTaskActionCreatorType => {
     return {
-        type: TaskActionsType.REMOVE_TASK,
+        type: TasksActionTypes.REMOVE_TASK,
         todoId: todoId,
         taskId: taskID
     }
 }
 
-export const setNewTaskTitleValueAC = (todoId: string, taskID: string, newTitle: string): SetNewTaskTitleValueActionCreatorType => {
+export const setNewTaskTitleValueAC = (todoId: string, taskId: string, newTitle: string): SetNewTaskTitleValueActionCreatorType => {
     return {
-        type: TaskActionsType.SET_NEW_TASK_TITLE_VALUE,
+        type: TasksActionTypes.SET_NEW_TASK_TITLE_VALUE,
         todoId: todoId,
-        taskId: taskID,
+        taskId: taskId,
         newTitleValue: newTitle
     }
 }
 
-export const setTaskStatusAC = (todoId: string, taskId: string, isDone: boolean): SetTaskStatusActionCreatorType => {
+export const setNewTaskStatusAC = (todoId: string, taskId: string, isDone: boolean): SetTaskStatusActionCreatorType => {
     return {
-        type: TaskActionsType.SET_TASK_STATUS,
+        type: TasksActionTypes.SET_TASK_STATUS,
         todoId: todoId,
         taskId: taskId,
         isDone: isDone

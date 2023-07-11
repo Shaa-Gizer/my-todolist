@@ -1,14 +1,19 @@
 .main {
-
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    /*justify-content: space-evenly;*/
+    /*justify-content: flex-end;*/
 }
 
 .addTaskBtn {
     font-family: Bradley Hand, cursive;
+    width: 30px;
+    height: 30px;
+    align-self: center;
+    background: #9C27B0;
+    color: white;
 }
 
-.error {
-}
-
-.errorText {
-    color: darkred;
+.inputTodoDefault {
 }

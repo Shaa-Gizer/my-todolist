@@ -1,35 +1,39 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import aifStyle from "../../../styles/AddItemForm.module.css";
 import {IconButton, TextField} from "@mui/material";
-import {Add} from "@mui/icons-material";
+import {AddBox} from "@mui/icons-material";
 
 interface AddItemFormPropsType {
-    addNewItem: (taskTitle: string) => void
+    addNewItem: (title: string) => void
 }
 
-export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
+export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) => {
+    console.log('ADD-ITEM-FORM')
 
-    const [newTaskTitle, setNewTaskTitle] = useState<string>('')
+    const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
 
     const onChangeSetNewTaskTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        error && setError(false)
-        console.log(newTaskTitle);
-        setNewTaskTitle(e.currentTarget.value)
+        error && setError(false);
+        setTitle(e.currentTarget.value);
     }
     const onClickAddNewItem = () => {
-        console.log('Im here')
-        newTaskTitle.trim() ? props.addNewItem(newTaskTitle) : setError(true);
-        console.log('onClickAddNewItem: ', newTaskTitle);
-        setNewTaskTitle('')
+        title.trim() ? props.addNewItem(title) : setError(true);
+        setTitle('');
     }
     const onKeyDownAddNewTask = (e: KeyboardEvent<HTMLInputElement>) => {
-        console.log('Click event')
-        e.key === 'Enter' && onClickAddNewItem()
+        error && setError(false);
+        e.key === 'Enter' && onClickAddNewItem();
     }
     const onBlurSetErrorFalse = () => setError(false);
 
-    const inputErrorClass = error ? aifStyle.error : aifStyle.inputTodoDefault;
+    const inputErrorClass = error ? `${aifStyle.error} ${aifStyle.inputTodoDefault}` : aifStyle.inputTodoDefault;
+
+    const addBtnStyle = {
+        marginLeft: 10 + 'px',
+        margin: 13 + 'px',
+        alignSelf: 'start'
+    }
 
     return (
         <div className={aifStyle.main}>
@@ -39,17 +43,21 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
                 label={!error ? 'New title' : 'Error!'}
                 error={error}
                 helperText={error ? 'Title is required' : ''}
-                value={newTaskTitle}
+                value={title}
                 className={inputErrorClass}
                 onChange={onChangeSetNewTaskTitle}
                 onBlur={onBlurSetErrorFalse}
                 onKeyDown={onKeyDownAddNewTask}
                 autoFocus
             />
-            <IconButton>
-                <Add className={aifStyle.addTaskBtn}
-                     onClick={onClickAddNewItem}/>
+            <IconButton onClick={onClickAddNewItem}
+                        className={aifStyle.addTaskBtn}
+                        style={addBtnStyle}
+            >
+                <AddBox color={'secondary'}
+                        fontSize={'large'}
+                />
             </IconButton>
         </div>
     );
-};
+});

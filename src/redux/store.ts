@@ -1,12 +1,15 @@
 import {combineReducers, createStore} from "redux";
-import {todosReducer} from "./reducers/todosReducer";
-import {tasksReducer} from "./reducers/tasksReducer";
+import {todolistsReducer} from "./reducers/DimychVersion/todolistsReducer";
+import {tasksReducer} from "./reducers/DimychVersion/tasksReducer";
 
 const rootReducer = combineReducers({
-    todos: todosReducer,
+    todolists: todolistsReducer,
     tasks: tasksReducer
 })
 
 export const store = createStore(rootReducer);
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootStateType = ReturnType<typeof rootReducer>
+
+// @ts-ignore
+window.store = store;

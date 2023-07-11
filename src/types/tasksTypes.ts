@@ -1,11 +1,11 @@
-export interface TasksType {
+export interface TaskType {
     taskId: string,
     taskTitle: string,
     isDone: boolean
 }
 
 export interface TasksStateType {
-    [todoId: string]: TasksType[]
+    [todoId: string]: TaskType[]
 }
 
 export interface InitTasksStateType {

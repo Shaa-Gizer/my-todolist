@@ -1,4 +1,4 @@
-import {FilterType} from "../../types/todoTypes";
+import {FilterType} from "../todosTypes";
 
 export const enum TodoActionsType {
     SET_TODO_FILTER = "SET-TODO-FILTER",
@@ -21,6 +21,7 @@ export interface DeleteTodoActionCreatorType {
 export interface AddNewTodoActionCreatorType {
     type: TodoActionsType.ADD_NEW_TODO,
     newTitle: string
+    todoID: string
 }
 
 export interface SetNewTodoTitleValueActionCreatorType {

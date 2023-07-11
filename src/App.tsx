@@ -1,32 +1,53 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {TodoList} from "./components/TodoList/TodoList";
 import {AddItemForm} from "./components/TodoList/AddItemForm/AddItemForm";
 import {Container, Grid} from "@mui/material";
-import {useDispatch} from "react-redux";
 import Header from "./components/Header/Header";
-import {addNewTodo} from "./redux/reducers/todosReducer";
-import {useTypedSelector} from "./hooks/useTypedSelector";
-import {filteredTasks} from "./helpers";
-
+import {FilterType, TodoType} from "./types";
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "./redux/store";
+import {
+    addNewTodolistAC,
+    deleteTodolistAC, setNewTodolistsTitleValueAC,
+    setTodolistsFilterValueAC
+} from "./redux/reducers/DimychVersion/todolistsReducer";
 export function App() {
+    console.log('APP')
 
-    const todos = useTypedSelector(state => state.todos.todos)
-    const tasks = useTypedSelector(state => state.tasks.tasks)
     const dispatch = useDispatch()
+    const todolists = useSelector<RootStateType, TodoType[]>(state => state.todolists)
 
-    const todoItems = Array.isArray(todos) ? todos?.map(td => <TodoList
+    const deleteTodolist = useCallback((todoId: string) => {
+        dispatch(deleteTodolistAC(todoId))
+    }, [])
+    const setTodolistsFilterValue = useCallback((todoId: string, filter: FilterType) => {
+        dispatch(setTodolistsFilterValueAC(todoId, filter))
+    }, [])
+    const setNewTodolistsTitleValue = useCallback((todoId: string, newTodolistTitleValue: string) => {
+        dispatch(setNewTodolistsTitleValueAC(todoId, newTodolistTitleValue))
+    }, [])
+    const addNewTodolistItem = useCallback((newTitle: string) => {
+        dispatch(addNewTodolistAC(newTitle))
+    }, [])
+
+    const todoItems = Array?.isArray(todolists) ? todolists?.map(td => <TodoList
         key={td.todoId}
         todoId={td.todoId}
-        todos={td}
-        tasks={filteredTasks(tasks, td)}/>) : null;
+        todo={td}
+        deleteTodolist={deleteTodolist}
+        setTodolistsFilterValue={setTodolistsFilterValue}
+        setNewTodolistsTitleValue={setNewTodolistsTitleValue}
+    />) : null;
 
     return (
         <div className="App">
             <Header />
             <Container fixed>
-                <Grid container style={{padding: '10px'}}>
-                    <AddItemForm addNewItem={(newTitle) => dispatch(addNewTodo(newTitle))}/>
+                <Grid container style={{padding: '10px'}}
+                      className={'aif'}
+                >
+                    <AddItemForm addNewItem={addNewTodolistItem}/>
                 </Grid>
                 <Grid container spacing={3}>
                     {todoItems}

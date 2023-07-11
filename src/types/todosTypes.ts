@@ -1,13 +1,12 @@
 export interface InitTodosStateType {
-    todos: TodosType[]
+    todos: TodoType[]
 }
 
-export interface TodosType {
+export interface TodoType {
     todoId: string,
     todoTitle: string,
     filter: FilterType
 }
-
 
 export enum FilterType {
     All = 'all',

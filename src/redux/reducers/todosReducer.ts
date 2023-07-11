@@ -28,7 +28,7 @@ export const todosReducer = (state = initTodosState, action: TodoActionCreatorsT
         case TodoActionsType.ADD_NEW_TODO:
             return {
                 ...state,
-                todos: [{todoId: v4(), todoTitle: action.newTitle, filter: FilterType.All}, ...state.todos],
+                todos: [{todoId: action.todoID, todoTitle: action.newTitle, filter: FilterType.All}, ...state.todos],
                 // tasks: {...state.tasks, [state.todos.todoId]: []}
             }
         case TodoActionsType.SET_NEW_TODO_TITLE_VALUE:
@@ -40,7 +40,7 @@ export const todosReducer = (state = initTodosState, action: TodoActionCreatorsT
                 })
             }
         default:
-            throw new Error('I dont understand this action type')
+            return state;
     }
 }
 
@@ -55,7 +55,8 @@ export const deleteTodo = (todoId: string): DeleteTodoActionCreatorType => ({
 })
 export const addNewTodo = (newTitle: string): AddNewTodoActionCreatorType => ({
     type: TodoActionsType.ADD_NEW_TODO,
-    newTitle
+    newTitle,
+    todoID: v4()
 })
 export const setNewTodoTitleValue = (todoId: string, newTitleValue: string): SetNewTodoTitleValueActionCreatorType => ({
     type: TodoActionsType.SET_NEW_TODO_TITLE_VALUE,

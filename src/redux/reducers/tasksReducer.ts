@@ -2,8 +2,8 @@ import {
     AddNewTaskActionCreatorType,
     InitTasksStateType,
     RemoveTaskActionCreatorType, SetNewTaskTitleValueActionCreatorType, SetTaskStatusActionCreatorType,
-    TaskActionCreatorsType,
-    TaskActionsType
+    TasksActionCreatorsType,
+    TasksActionTypes
 } from "../../types";
 import {v4} from "uuid";
 
@@ -11,9 +11,9 @@ let initTasksState: InitTasksStateType = {
     tasks: {}
 }
 
-export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsType): InitTasksStateType => {
+export const tasksReducer = (state = initTasksState, action: TasksActionCreatorsType): InitTasksStateType => {
     switch (action.type) {
-        case TaskActionsType.ADD_NEW_TASK:
+        case TasksActionTypes.ADD_NEW_TASK:
 
             return {
                 ...state,
@@ -27,7 +27,7 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
 
                 }
             }
-        case TaskActionsType.REMOVE_TASK:
+        case TasksActionTypes.REMOVE_TASK:
             return {
                 ...state,
                 tasks: {
@@ -35,7 +35,7 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
                     [action.todoId]: state.tasks[action.todoId].filter(t => t.taskId !== action.taskId)
                 }
             }
-        case TaskActionsType.SET_TASK_STATUS:
+        case TasksActionTypes.SET_TASK_STATUS:
             return {
                 ...state,
                 tasks: {
@@ -44,7 +44,7 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
                         {...t, isDone: action.isDone})
                 }
             }
-        case TaskActionsType.SET_NEW_TASK_TITLE_VALUE:
+        case TasksActionTypes.SET_NEW_TASK_TITLE_VALUE:
             return {
                 ...state, tasks: {
                     ...state.tasks,
@@ -54,28 +54,28 @@ export const tasksReducer = (state = initTasksState, action: TaskActionCreatorsT
                 }
             }
         default:
-            return state
+            return state;
     }
 }
 
 export const addNewTask = (todoId: string, taskTitle: string): AddNewTaskActionCreatorType => ({
-    type: TaskActionsType.ADD_NEW_TASK,
+    type: TasksActionTypes.ADD_NEW_TASK,
     todoId,
     taskTitle
 });
 export const removeTask = (todoId: string, taskId: string): RemoveTaskActionCreatorType => ({
-    type: TaskActionsType.REMOVE_TASK,
+    type: TasksActionTypes.REMOVE_TASK,
     todoId,
     taskId
 });
 export const setTaskStatus = (todoId: string, taskId: string, isDone: boolean): SetTaskStatusActionCreatorType => ({
-    type: TaskActionsType.SET_TASK_STATUS,
+    type: TasksActionTypes.SET_TASK_STATUS,
     todoId,
     taskId,
     isDone
 })
 export const setNewTaskTitleValue = (todoId: string, taskId: string, newTitleValue: string): SetNewTaskTitleValueActionCreatorType => ({
-    type: TaskActionsType.SET_NEW_TASK_TITLE_VALUE,
+    type: TasksActionTypes.SET_NEW_TASK_TITLE_VALUE,
     todoId,
     taskId,
     newTitleValue

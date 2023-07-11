@@ -1,12 +1,12 @@
 .todo {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     /*background-color: #28A9A2;*/
 }
 
 .todoItem {
     margin: 15px;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     /*background-color: #3BC1B6;*/
     max-width: 100%;
@@ -17,6 +17,8 @@
 
 .titleBtn {
     align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .todoTitle {
@@ -24,9 +26,12 @@
 }
 
 .deleteTodoBtn {
+    margin-left: 10px;
 }
 
 .filterBtns {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .defaultFilterBtn {
@@ -41,9 +46,9 @@
 .completedBtn {
 }
 
-.aif {
-    margin: 5px;
-}
+/*.aif {*/
+/*    margin: 5px;*/
+/*}*/
 
 .tasks {
     margin: 5px;

@@ -4,16 +4,18 @@ import {
     FilterType, SetNewTodoTitleValueActionCreatorType, SetTodoFilterActionCreatorType,
     TodoActionCreatorsType,
     TodoActionsType,
-    TodosType
+    TodoType
 } from "../../../types";
 import {v4} from "uuid";
 
-export const todolistsReducer = (state: TodosType[], action: TodoActionCreatorsType): TodosType[] => {
+const initialState: TodoType[] = []
+
+export const todolistsReducer = (state: TodoType[] = initialState, action: TodoActionCreatorsType): TodoType[] => {
     switch (action.type) {
         case TodoActionsType.DELETE_TODO:
             return state.filter(tl => tl.todoId !== action.todoId)
         case TodoActionsType.ADD_NEW_TODO:
-            return [...state, {todoId: v4(), todoTitle: action.newTitle, filter: FilterType.All}]
+            return [{todoId: action.todoID, todoTitle: action.newTitle, filter: FilterType.All}, ...state]
         case TodoActionsType.SET_NEW_TODO_TITLE_VALUE:
             const todolist = state.find(tl => tl.todoId === action.todoId)
             if (todolist) {
@@ -21,20 +23,23 @@ export const todolistsReducer = (state: TodosType[], action: TodoActionCreatorsT
             }
             return [...state]
         case TodoActionsType.SET_TODO_FILTER:
-            const todolistFilter = state.find(tl => tl.todoId === action.todoId)
-            if (todolistFilter) {
-                todolistFilter.filter = action.filter
-            }
-            return [...state]
+            const todolistFilter = state.find(tl => tl.todoId === action.todoId) as TodoType
+            const updatedState = state.filter(el => el.todoId !== action.todoId)
+            // if (todolistFilter) {
+            //     todolistFilter.filter = action.filter
+            // }
+            console.log('Ku')
+            return [...updatedState, {...todolistFilter, filter: action.filter}]
         default:
-            throw new Error('I dont understand this action type')
+            return state;
     }
 }
 
-export const addNewTodoAC = (newTitle: string): AddNewTodoActionCreatorType => {
+export const addNewTodolistAC = (newTitle: string): AddNewTodoActionCreatorType => {
     return {
         type: TodoActionsType.ADD_NEW_TODO,
-        newTitle: newTitle
+        newTitle,
+        todoID: v4()
     }
 }
 
@@ -45,7 +50,7 @@ export const deleteTodolistAC = (todoID: string): DeleteTodoActionCreatorType =>
     }
 }
 
-export const setNewTodoTitleValueAC = (todoID: string, newTitle: string): SetNewTodoTitleValueActionCreatorType => {
+export const setNewTodolistsTitleValueAC = (todoID: string, newTitle: string): SetNewTodoTitleValueActionCreatorType => {
     return {
         type: TodoActionsType.SET_NEW_TODO_TITLE_VALUE,
         todoId: todoID,
@@ -53,7 +58,7 @@ export const setNewTodoTitleValueAC = (todoID: string, newTitle: string): SetNew
     }
 }
 
-export const setTodoFilterAC = (todoID: string, filter: FilterType): SetTodoFilterActionCreatorType => {
+export const setTodolistsFilterValueAC = (todoID: string, filter: FilterType): SetTodoFilterActionCreatorType => {
     return {
         type: TodoActionsType.SET_TODO_FILTER,
         todoId: todoID,

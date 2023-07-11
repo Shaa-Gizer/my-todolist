@@ -1,9 +1,13 @@
 .taskTitle {
     padding: 5px;
+    margin: 5px;
+    display: flex;
+    /*background: #000;*/
+    /*float: left;*/
 }
 
 .editMode {
-    text-align: center;
+    /*text-align: center;*/
     margin: 5px;
     font-family: Bradley Hand, cursive;
 }
