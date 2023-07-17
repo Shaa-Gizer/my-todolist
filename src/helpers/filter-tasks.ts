@@ -1,13 +1,13 @@
 import {FilterType, TasksStateType, TodoType} from "../types";
 
 
-export const filteredTasks = (tasks: TasksStateType, td: TodoType) => {
-    switch (td.filter) {
+export const filteredTasks = (tasks: TasksStateType, todoId: string, filter: FilterType) => {
+    switch (filter) {
         case FilterType.Active:
-            return tasks[td.todoId].filter(t => !t.isDone);
+            return tasks[todoId].filter(t => !t.isDone);
         case FilterType.Completed:
-            return tasks[td.todoId].filter(t => t.isDone);
+            return tasks[todoId].filter(t => t.isDone);
         default:
-            return tasks[td.todoId];
+            return tasks[todoId];
     }
 }

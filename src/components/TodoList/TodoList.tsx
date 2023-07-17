@@ -18,14 +18,15 @@ import {RootStateType} from "../../redux/store";
 
 interface TodosPropsType {
     todoId: string,
-    todo: TodoType,
+    todoTitle: string,
+    filter: FilterType,
     deleteTodolist: (todoId: string) => void,
     setTodolistsFilterValue: (todoId: string, filter: FilterType) => void,
     setNewTodolistsTitleValue: (todoId: string, newTodolistTitleValue: string) => void
 }
 
 export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
-    console.log('TODOLIST', props)
+    console.log('TODOLIST')
     const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
@@ -64,7 +65,7 @@ export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
                         <div className={tdStyle.titleBtn}>
                             <h3 className={tdStyle.todoTitle}>
                                 <EditableSpan
-                                    title={props.todo.todoTitle}
+                                    title={props.todoTitle}
                                     onChangeEditableSpan={onChangeSetTodoTitleValue}
                                 />
                             </h3>
@@ -82,7 +83,7 @@ export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
                         <div className={tdStyle.tasks}>
                             <Tasks
                                 todoId={props.todoId}
-                                tasks={filteredTasks(tasks, props.todo)}
+                                tasks={filteredTasks(tasks, props.todoId, props.filter)}
                                 removeTask={removeTask}
                                 setNewTaskStatus={setNewTaskStatus}
                                 setNewTaskTitleValue={setNewTaskTitleValue}
@@ -90,21 +91,21 @@ export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
                         </div>
                         <div className={tdStyle.filterBtns}>
                             <Button
-                                variant={props.todo.filter === 'all' ? 'contained' : 'outlined'} color={'primary'}
-                                className={props.todo.filter === 'all' ? tdStyle.allBtn + tdStyle.defaultFilterBtn : tdStyle.defaultFilterBtn}
+                                variant={props.filter === 'all' ? 'contained' : 'outlined'} color={'primary'}
+                                className={props.filter === 'all' ? tdStyle.allBtn + tdStyle.defaultFilterBtn : tdStyle.defaultFilterBtn}
                                 onClick={onClickSetAllFilterValue}
                             >All
                             </Button>
                             <Button
-                                variant={props.todo.filter === 'active' ? 'contained' : 'outlined'} color={'secondary'}
-                                className={props.todo.filter === 'active' ? tdStyle.activeBtn + tdStyle.defaultFilterBtn : tdStyle.defaultFilterBtn}
+                                variant={props.filter === 'active' ? 'contained' : 'outlined'} color={'secondary'}
+                                className={props.filter === 'active' ? tdStyle.activeBtn + tdStyle.defaultFilterBtn : tdStyle.defaultFilterBtn}
                                 onClick={onClickSetActiveFilterValue}
                             >Active
                             </Button>
                             <Button
-                                variant={props.todo.filter === 'completed' ? 'contained' : 'outlined'}
+                                variant={props.filter === 'completed' ? 'contained' : 'outlined'}
                                 color={'success'}
-                                className={props.todo.filter === 'completed' ? tdStyle.completedBtn + tdStyle.defaultFilterBtn : tdStyle.defaultFilterBtn}
+                                className={props.filter === 'completed' ? tdStyle.completedBtn + tdStyle.defaultFilterBtn : tdStyle.defaultFilterBtn}
                                 onClick={onClickSetCompletedFilterValue}
                             >Completed
                             </Button>

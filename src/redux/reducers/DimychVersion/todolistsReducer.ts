@@ -23,13 +23,7 @@ export const todolistsReducer = (state: TodoType[] = initialState, action: TodoA
             }
             return [...state]
         case TodoActionsType.SET_TODO_FILTER:
-            const todolistFilter = state.find(tl => tl.todoId === action.todoId) as TodoType
-            const updatedState = state.filter(el => el.todoId !== action.todoId)
-            // if (todolistFilter) {
-            //     todolistFilter.filter = action.filter
-            // }
-            console.log('Ku')
-            return [...updatedState, {...todolistFilter, filter: action.filter}]
+            return state.map(td => td.todoId === action.todoId ? {...td, filter: action.filter} : td)
         default:
             return state;
     }

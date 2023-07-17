@@ -34,7 +34,8 @@ export function App() {
     const todoItems = Array?.isArray(todolists) ? todolists?.map(td => <TodoList
         key={td.todoId}
         todoId={td.todoId}
-        todo={td}
+        todoTitle={td.todoTitle}
+        filter={td.filter}
         deleteTodolist={deleteTodolist}
         setTodolistsFilterValue={setTodolistsFilterValue}
         setNewTodolistsTitleValue={setNewTodolistsTitleValue}
@@ -45,8 +46,7 @@ export function App() {
             <Header />
             <Container fixed>
                 <Grid container style={{padding: '10px'}}
-                      className={'aif'}
-                >
+                      className={'aif'}>
                     <AddItemForm addNewItem={addNewTodolistItem}/>
                 </Grid>
                 <Grid container spacing={3}>
