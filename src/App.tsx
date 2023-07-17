@@ -20,16 +20,16 @@ export function App() {
 
     const deleteTodolist = useCallback((todoId: string) => {
         dispatch(deleteTodolistAC(todoId))
-    }, [])
+    }, [dispatch])
     const setTodolistsFilterValue = useCallback((todoId: string, filter: FilterType) => {
         dispatch(setTodolistsFilterValueAC(todoId, filter))
-    }, [])
+    }, [dispatch])
     const setNewTodolistsTitleValue = useCallback((todoId: string, newTodolistTitleValue: string) => {
         dispatch(setNewTodolistsTitleValueAC(todoId, newTodolistTitleValue))
-    }, [])
+    }, [dispatch])
     const addNewTodolistItem = useCallback((newTitle: string) => {
         dispatch(addNewTodolistAC(newTitle))
-    }, [])
+    }, [dispatch])
 
     const todoItems = Array?.isArray(todolists) ? todolists?.map(td => <TodoList
         key={td.todoId}

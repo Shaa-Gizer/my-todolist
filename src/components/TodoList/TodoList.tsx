@@ -5,7 +5,7 @@ import {AddItemForm} from "./AddItemForm/AddItemForm";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
-import {FilterType, TasksStateType, TodoType} from "../../types";
+import {FilterType, TasksStateType, TaskType, TodoType} from "../../types";
 import {filteredTasks} from "../../helpers";
 import {
     addNewTaskAC,
@@ -27,35 +27,27 @@ interface TodosPropsType {
 
 export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
     console.log('TODOLIST')
-    const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
+    const tasks = useSelector<RootStateType, TaskType[]>(state => state.tasks[props.todoId])
     const dispatch = useDispatch()
 
     const addNewTask = useCallback((todoId: string, taskTitle: string) => {
         dispatch(addNewTaskAC(todoId, taskTitle))
-    }, [])
-    const removeTask = useCallback((todoId: string, taskId: string) => {
-        dispatch(removeTaskAC(todoId, taskId))
-    }, [])
-    const setNewTaskStatus = useCallback((todoId: string, taskId: string, isDone: boolean) => {
-        dispatch(setNewTaskStatusAC(todoId, taskId, isDone))
-    }, [])
-    const setNewTaskTitleValue = useCallback((todoId: string, taskId: string, newTaskTitleValue: string) => {
-        dispatch(setNewTaskTitleValueAC(todoId, taskId, newTaskTitleValue))
-    }, [])
+    }, [dispatch])
+
 
     const onClickDeleteTodo = useCallback(() => {
         props.deleteTodolist(props.todoId)
-    }, [])
+    }, [props.todoId])
     const onClickSetAllFilterValue = () => props.setTodolistsFilterValue(props.todoId, FilterType.All)
     const onClickSetActiveFilterValue = () => props.setTodolistsFilterValue(props.todoId, FilterType.Active)
     const onClickSetCompletedFilterValue = () => props.setTodolistsFilterValue(props.todoId, FilterType.Completed)
 
     const addNewTaskItem = useCallback((newTaskTitle: string) => {
         addNewTask(props.todoId, newTaskTitle)
-    }, [])
+    }, [addNewTask])
     const onChangeSetTodoTitleValue = useCallback((newTodoTitleValue: string) => {
         props.setNewTodolistsTitleValue(props.todoId, newTodoTitleValue)
-    }, [])
+    }, [props.todoId])
 
     return (
         <Grid item>
@@ -83,10 +75,7 @@ export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
                         <div className={tdStyle.tasks}>
                             <Tasks
                                 todoId={props.todoId}
-                                tasks={filteredTasks(tasks, props.todoId, props.filter)}
-                                removeTask={removeTask}
-                                setNewTaskStatus={setNewTaskStatus}
-                                setNewTaskTitleValue={setNewTaskTitleValue}
+                                filter={props.filter}
                             />
                         </div>
                         <div className={tdStyle.filterBtns}>

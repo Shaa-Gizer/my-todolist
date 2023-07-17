@@ -3,31 +3,38 @@ import tStyle from '../../../styles/Tasks.module.css'
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
-import {useDispatch} from "react-redux";
-import {TaskType} from "../../../types";
+import {useDispatch, useSelector} from "react-redux";
+import {FilterType, TaskType} from "../../../types";
+import {RootStateType} from "../../../redux/store";
+import {
+    removeTaskAC,
+    setNewTaskStatusAC,
+    setNewTaskTitleValueAC
+} from "../../../redux/reducers/DimychVersion/tasksReducer";
+import {filteredTasks} from "../../../helpers";
 
 interface TasksPropsType {
     todoId: string,
-    tasks: TaskType[],
-    removeTask: (todoId: string, taskId: string) => void,
-    setNewTaskStatus: (todoId: string, taskId: string, isDone: boolean) => void,
-    setNewTaskTitleValue: (todoId: string, taskId: string, newTaskTitleValue: string) => void
+    filter: FilterType
 }
 
 export const Tasks: React.FC<TasksPropsType> = (props) => {
-    console.log('TASKS')
+    // console.log('TASKS')
+    const tasks = useSelector<RootStateType, TaskType[]>(state => state.tasks[props.todoId])
+    const dispatch = useDispatch()
+    const filtered = filteredTasks(tasks, props.filter)
 
-    const taskItems = props.tasks?.length ?
-        props.tasks.map(t => {
+    const taskItems = filtered?.length ?
+        filtered.map(t => {
 
             const onClickRemoveTask = () => {
-                props.removeTask(props.todoId, t.taskId)
+                dispatch(removeTaskAC(props.todoId, t.taskId))
             }
             const onChangeSetTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-                props.setNewTaskStatus(props.todoId, t.taskId, e.currentTarget.checked)
+                dispatch(setNewTaskStatusAC(props.todoId, t.taskId, e.currentTarget.checked))
             }
             const onChangeEditableSpan = (newTaskTitleValue: string) => {
-                props.setNewTaskTitleValue(props.todoId, t.taskId, newTaskTitleValue)
+                dispatch(setNewTaskTitleValueAC(props.todoId, t.taskId, newTaskTitleValue))
             }
 
             return (
