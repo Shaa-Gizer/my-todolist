@@ -1,9 +1,7 @@
 .main {
     display: flex;
-    justify-content: center;
-    margin: 10px 0;
-    /*justify-content: space-evenly;*/
-    /*justify-content: flex-end;*/
+    /*justify-content: space-between;*/
+    /*margin: 10px 0;*/
 }
 
 .addTaskBtn {
@@ -11,7 +9,7 @@
     width: 30px;
     height: 30px;
     align-self: center;
-    background: #9C27B0;
+    /*background: #9C27B0;*/
     color: white;
 }
 

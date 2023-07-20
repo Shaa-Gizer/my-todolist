@@ -2,8 +2,6 @@
 }
 
 .App {
-  margin: 0 100px;
-  padding: 20px;
   display: flex;
   justify-content: flex-start;
   flex-flow: row wrap;
@@ -15,5 +13,6 @@
 }
 
 .aif {
-  margin-top: 30px;
+  margin-top: 60px;
+  margin-bottom: 10px;
 }

@@ -6,7 +6,6 @@ import {
     TasksActionCreatorsType,
     TasksActionTypes,
     TasksStateType,
-    TaskType,
     TodoActionsType
 } from "../../../types";
 import {v1} from "uuid";
@@ -18,32 +17,25 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Tasks
         case TasksActionTypes.ADD_NEW_TASK: {
             const stateCopy = {...state};
             const tasks = stateCopy[action.todoId];
-            const newTask: TaskType = {taskId: v1(), taskTitle: action.taskTitle, isDone: false}
-            const newTasks = [newTask, ...tasks]
+            const newTasks = [{taskId: v1(), taskTitle: action.taskTitle, isDone: false}, ...tasks]
             stateCopy[action.todoId] = newTasks
             return stateCopy
         }
         case TasksActionTypes.REMOVE_TASK: {
             const stateCopy = {...state};
             const tasks = state[action.todoId];
-            const filteredTasks = tasks.filter(t => t.taskId !== action.taskId);
-            stateCopy[action.todoId] = filteredTasks;
+            stateCopy[action.todoId] = tasks.filter(t => t.taskId !== action.taskId);
             return stateCopy;
         }
         case TasksActionTypes.SET_NEW_TASK_TITLE_VALUE: {
-            const stateCopy = {...state};
-            let tasks = stateCopy[action.todoId]
-            let task = tasks.find(t => t.taskId === action.taskId);
-            if (task) {
-                task.taskTitle = action.newTitleValue
-            }
-            return {...stateCopy}
+            let tasks = state[action.todoId]
+            state[action.todoId] = tasks.map(t => t.taskId === action.taskId ? {...t, taskTitle: action.newTitleValue} : t)
+            return {...state}
         }
         case TasksActionTypes.SET_TASK_STATUS: {
-            const stateCopy = {...state};
-            let tasks = stateCopy[action.todoId]
-            stateCopy[action.todoId] = tasks.map(t => t.taskId === action.taskId ? {...t, isDone: action.isDone} : t)
-            return {...stateCopy}
+            let tasks = state[action.todoId]
+            state[action.todoId] = tasks.map(t => t.taskId === action.taskId ? {...t, isDone: action.isDone} : t)
+            return {...state}
         }
         case TodoActionsType.ADD_NEW_TODO: {
             const stateCopy = {...state}

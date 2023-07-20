@@ -1,9 +1,9 @@
-.taskTitle {
-    padding: 5px;
-    margin: 5px;
+.title {
+    /*padding: 5px;*/
+    /*margin: 0 5px;*/
     display: flex;
-    /*background: #000;*/
-    /*float: left;*/
+    align-items: center;
+    word-break: break-all;
 }
 
 .editMode {

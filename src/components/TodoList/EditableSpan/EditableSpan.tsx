@@ -7,8 +7,8 @@ interface EditableSpanPropsType {
     onChangeEditableSpan: (newTitleValue: string) => void
 }
 
-export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
-    // console.log('EDITABLE-SPAN')
+export const EditableSpan: React.FC<EditableSpanPropsType> = React.memo((props) => {
+    console.log('EDITABLE-SPAN')
 
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
@@ -44,12 +44,13 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
             onChange={onChangeEditTitle}
             onKeyDown={onKeyDownSetNewTitle}
             className={esStyle.editMode}
+            variant={'standard'}
             autoFocus
             label={error ? "Title is required!" : ''}
             error={error}
         />
         : <span
-            className={esStyle.taskTitle}
+            className={esStyle.title}
             onDoubleClick={activateEditMode}
         >{props.title}</span>
-};
+});

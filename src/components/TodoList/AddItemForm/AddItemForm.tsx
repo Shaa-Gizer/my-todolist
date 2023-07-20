@@ -31,8 +31,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) =>
 
     const addBtnStyle = {
         marginLeft: 10 + 'px',
-        margin: 13 + 'px',
-        alignSelf: 'start'
+        alignSelf: 'center'
     }
 
     return (
@@ -55,7 +54,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) =>
                         style={addBtnStyle}
             >
                 <AddBox color={'secondary'}
-                        fontSize={'large'}
+                        fontSize={'medium'}
                 />
             </IconButton>
         </div>

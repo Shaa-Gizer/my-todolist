@@ -1,20 +1,17 @@
 import React, {useCallback} from 'react';
 import tdStyle from '../../styles/TodoList.module.css'
-import {Tasks} from "./Tasks/Tasks";
 import {AddItemForm} from "./AddItemForm/AddItemForm";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
-import {FilterType, TasksStateType, TaskType, TodoType} from "../../types";
-import {filteredTasks} from "../../helpers";
-import {
-    addNewTaskAC,
-    removeTaskAC,
-    setNewTaskStatusAC,
-    setNewTaskTitleValueAC
+import {FilterType, TaskType} from "../../types";
+import {addNewTaskAC, removeTaskAC, setNewTaskStatusAC, setNewTaskTitleValueAC,
 } from "../../redux/reducers/DimychVersion/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
+import {Task} from "../Task/Task";
 import {RootStateType} from "../../redux/store";
+import {filteredTasks} from "../../helpers";
+import tStyle from "../../styles/Tasks.module.css";
 
 interface TodosPropsType {
     todoId: string,
@@ -32,22 +29,35 @@ export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
 
     const addNewTask = useCallback((todoId: string, taskTitle: string) => {
         dispatch(addNewTaskAC(todoId, taskTitle))
-    }, [dispatch])
-
+    }, [dispatch]);
+    const removeTask = useCallback((taskId: string) => {
+        dispatch(removeTaskAC(props.todoId, taskId))
+    }, [dispatch, props.todoId]);
+    const setTaskStatus = useCallback((taskId: string, isDone: boolean) => {
+        dispatch(setNewTaskStatusAC(props.todoId, taskId, isDone))
+    }, [dispatch, props.todoId]);
+    const changeEditableSpan = useCallback((taskId: string, newTaskTitleValue: string) => {
+        dispatch(setNewTaskTitleValueAC(props.todoId, taskId, newTaskTitleValue))
+    }, [dispatch, props.todoId]);
 
     const onClickDeleteTodo = useCallback(() => {
         props.deleteTodolist(props.todoId)
-    }, [props.todoId])
-    const onClickSetAllFilterValue = () => props.setTodolistsFilterValue(props.todoId, FilterType.All)
-    const onClickSetActiveFilterValue = () => props.setTodolistsFilterValue(props.todoId, FilterType.Active)
-    const onClickSetCompletedFilterValue = () => props.setTodolistsFilterValue(props.todoId, FilterType.Completed)
+    }, [props.deleteTodolist, props.todoId]);
+    const onChangeSetTodoTitleValue = useCallback((newTodoTitleValue: string) => {
+        props.setNewTodolistsTitleValue(props.todoId, newTodoTitleValue)
+    }, [props.setNewTodolistsTitleValue, props.todoId]);
+
+    const onClickSetAllFilterValue = useCallback(() => props.setTodolistsFilterValue(props.todoId, FilterType.All),
+        [props.setTodolistsFilterValue, props.todoId]);
+    const onClickSetActiveFilterValue = useCallback(() => props.setTodolistsFilterValue(props.todoId, FilterType.Active),
+        [props.setTodolistsFilterValue, props.todoId]);
+    const onClickSetCompletedFilterValue = useCallback(() => props.setTodolistsFilterValue(props.todoId, FilterType.Completed),
+        [props.setTodolistsFilterValue, props.todoId]);
 
     const addNewTaskItem = useCallback((newTaskTitle: string) => {
         addNewTask(props.todoId, newTaskTitle)
-    }, [addNewTask])
-    const onChangeSetTodoTitleValue = useCallback((newTodoTitleValue: string) => {
-        props.setNewTodolistsTitleValue(props.todoId, newTodoTitleValue)
-    }, [props.todoId])
+    }, [addNewTask, props.todoId]);
+
 
     return (
         <Grid item>
@@ -73,10 +83,16 @@ export const TodoList: React.FC<TodosPropsType> = React.memo((props) => {
                             />
                         </div>
                         <div className={tdStyle.tasks}>
-                            <Tasks
-                                todoId={props.todoId}
-                                filter={props.filter}
-                            />
+                            {filteredTasks(tasks, props.filter).length ?
+                                filteredTasks(tasks, props.filter).map(t => <Task
+                                    key={t.taskId}
+                                    todoId={props.todoId}
+                                    task={t}
+                                    removeTask={removeTask}
+                                    setTaskStatus={setTaskStatus}
+                                    changeEditableSpan={changeEditableSpan}
+                                />)
+                                : <span className={tStyle.errorMessage}>No tasks!</span>}
                         </div>
                         <div className={tdStyle.filterBtns}>
                             <Button

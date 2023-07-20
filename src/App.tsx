@@ -45,11 +45,11 @@ export function App() {
         <div className="App">
             <Header />
             <Container fixed>
-                <Grid container style={{padding: '10px'}}
+                <Grid container style={{padding: '5px'}}
                       className={'aif'}>
                     <AddItemForm addNewItem={addNewTodolistItem}/>
                 </Grid>
-                <Grid container spacing={3}>
+                <Grid container spacing={2}>
                     {todoItems}
                 </Grid>
             </Container>

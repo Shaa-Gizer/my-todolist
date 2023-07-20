@@ -5,20 +5,15 @@
 }
 
 .todoItem {
-    margin: 15px;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
-    /*background-color: #3BC1B6;*/
-    max-width: 100%;
-    max-height: max-content;
-    /*float: left;*/
-    /*text-align: center;*/
+    max-width: 291px;
 }
 
 .titleBtn {
-    align-items: center;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .todoTitle {
@@ -26,24 +21,15 @@
 }
 
 .deleteTodoBtn {
-    margin-left: 10px;
+    /*margin-left: 10px;*/
+    width: 15px;
+    height: 15px;
+    color: #EC5C5C;
 }
 
 .filterBtns {
     display: flex;
-    justify-content: space-evenly;
-}
-
-.defaultFilterBtn {
-}
-
-.allBtn {
-}
-
-.activeBtn {
-}
-
-.completedBtn {
+    justify-content: space-between;
 }
 
 /*.aif {*/
@@ -51,5 +37,6 @@
 /*}*/
 
 .tasks {
-    margin: 5px;
+    width: 95%;
+    margin: 5px auto;
 }
