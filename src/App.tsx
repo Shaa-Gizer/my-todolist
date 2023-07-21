@@ -11,7 +11,7 @@ import {
     addNewTodolistAC,
     deleteTodolistAC, setNewTodolistsTitleValueAC,
     setTodolistsFilterValueAC
-} from "./redux/reducers/DimychVersion/todolistsReducer";
+} from "./redux/reducers/todolistsReducer";
 export function App() {
     console.log('APP')
 

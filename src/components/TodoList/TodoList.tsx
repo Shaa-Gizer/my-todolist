@@ -6,9 +6,9 @@ import {Button, Grid, IconButton, Paper} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {FilterType, TaskType} from "../../types";
 import {addNewTaskAC, removeTaskAC, setNewTaskStatusAC, setNewTaskTitleValueAC,
-} from "../../redux/reducers/DimychVersion/tasksReducer";
+} from "../../redux/reducers/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {Task} from "../Task/Task";
+import {Task} from "./Task/Task";
 import {RootStateType} from "../../redux/store";
 import {filteredTasks} from "../../helpers";
 import tStyle from "../../styles/Tasks.module.css";

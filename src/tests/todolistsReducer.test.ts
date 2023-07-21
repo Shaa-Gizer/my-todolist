@@ -5,7 +5,7 @@ import {
     deleteTodolistAC,
     setNewTodolistsTitleValueAC, setTodolistsFilterValueAC,
     todolistsReducer
-} from "../redux/reducers/DimychVersion/todolistsReducer";
+} from "../redux/reducers/todolistsReducer";
 
 test('correct todolist should be removed', () => {
     let todoID1 = v4();

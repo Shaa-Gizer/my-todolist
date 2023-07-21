@@ -1,11 +1,26 @@
-import React from 'react'
-import {EditableSpan} from "./EditableSpan";
+import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions'
+import { EditableSpan } from './EditableSpan';
 
-export default {
-    title: 'EditableSpan Component',
+const meta: Meta<typeof EditableSpan> = {
+    title: 'TODOLISTS/EditableSpan',
     component: EditableSpan,
-}
+    tags: ['autodocs'],
+    argTypes: {
+        title: {
+            description: 'Start value empty. Add value push button set string.'
+        },
+        onChangeEditableSpan: {
+            description: 'Value EditableSpan changed'
+        }
+    }
+};
 
-const changeCallback = action('Button Add was pressed inside the form');
-export const EditableSpanBaseExample = (props: any) => <EditableSpan title={'Start title'} onChangeEditableSpan={changeCallback}/>
+export default meta;
+type Story = StoryObj<typeof EditableSpan>;
+
+export const EditableSpanStory: Story = {
+    args: {
+        onChangeEditableSpan: action('Value EditableSpan changed')
+    }
+};

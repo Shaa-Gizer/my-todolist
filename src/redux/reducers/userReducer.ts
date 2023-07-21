@@ -1,4 +1,4 @@
-import {UserStateType} from "../../../types/userTypes";
+import {UserStateType} from "../../types/userTypes";
 
 type ActionType = {
     type: string,

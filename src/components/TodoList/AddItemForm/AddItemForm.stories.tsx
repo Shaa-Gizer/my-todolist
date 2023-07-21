@@ -1,11 +1,25 @@
-import React from 'react'
-import {AddItemForm} from "./AddItemForm";
+import type {Meta, StoryObj} from '@storybook/react';
+import {AddItemForm} from './AddItemForm';
 import {action} from '@storybook/addon-actions'
 
-export default {
-    title: 'AddItemForm Component',
+const meta: Meta<typeof AddItemForm> = {
+    title: 'TODOLISTS/AddItemForm',
     component: AddItemForm,
-}
+    tags: ['autodocs'],
+    argTypes: {
+        addNewItem: {
+            description: 'Button clicked inside form',
+            action: 'clicked'
+        }
+    },
+};
 
-const callback = action('Button Add was pressed inside the form');
-export const AddItemFormBaseExample = (props: any) => <AddItemForm addNewItem={callback}/>
+export default meta;
+
+type Story = StoryObj<typeof AddItemForm>;
+
+export const AddItemFormStory: Story = {
+    args: {
+        addNewItem: action('Button clicked inside form')
+    },
+};

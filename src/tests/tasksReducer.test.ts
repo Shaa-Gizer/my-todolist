@@ -4,9 +4,9 @@ import {
     setNewTaskTitleValueAC,
     setNewTaskStatusAC,
     tasksReducer
-} from "../redux/reducers/DimychVersion/tasksReducer";
+} from "../redux/reducers/tasksReducer";
 import {TasksStateType} from "../types";
-import {addNewTodolistAC, deleteTodolistAC} from "../redux/reducers/DimychVersion/todolistsReducer";
+import {addNewTodolistAC, deleteTodolistAC} from "../redux/reducers/todolistsReducer";
 
 test('correct task should be removed from correct todo', () => {
     const startState: TasksStateType = {

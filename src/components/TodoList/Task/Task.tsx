@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useCallback} from 'react';
-import tStyle from "../../styles/Tasks.module.css";
+import tStyle from "../../../styles/Tasks.module.css";
 import {Checkbox, IconButton} from "@mui/material";
-import {EditableSpan} from "../TodoList/EditableSpan/EditableSpan";
+import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Delete} from "@mui/icons-material";
-import {TaskType} from "../../types";
+import {TaskType} from "../../../types";
 
 interface TaskPropsType {
     todoId: string,

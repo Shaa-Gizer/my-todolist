@@ -1,4 +1,4 @@
-import {userReducer} from "../redux/reducers/DimychVersion/userReducer";
+import {userReducer} from "../redux/reducers/userReducer";
 
 test('user reducer should increment only age', () => {
     const startState = {age: 20, childrenCount: 2, name: 'Sveta'};

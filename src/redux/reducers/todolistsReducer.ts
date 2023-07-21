@@ -5,7 +5,7 @@ import {
     TodoActionCreatorsType,
     TodoActionsType,
     TodoType
-} from "../../../types";
+} from "../../types";
 import {v4} from "uuid";
 
 const initialState: TodoType[] = []
