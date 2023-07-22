@@ -3,8 +3,13 @@ import {AppBar, Button, IconButton, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 
 const Header = () => {
+
+    const style = {
+        background: '#2ca46a'
+    }
+
     return (
-        <AppBar position="fixed" color="secondary">
+        <AppBar position="fixed" style={style} color="secondary">
             <Toolbar>
                 <IconButton
                     size="large"

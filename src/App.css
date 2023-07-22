@@ -6,6 +6,8 @@
   justify-content: flex-start;
   flex-flow: row wrap;
   font-family: Roboto, sans-serif;
+  min-height: 100vh;
+  /*background: #1F1F1F;*/
 }
 
 .App > div {

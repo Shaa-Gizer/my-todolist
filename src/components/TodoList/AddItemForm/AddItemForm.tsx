@@ -27,11 +27,14 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) =>
     }
     const onBlurSetErrorFalse = () => setError(false);
 
-    const inputErrorClass = error ? `${aifStyle.error} ${aifStyle.inputTodoDefault}` : aifStyle.inputTodoDefault;
-
     const addBtnStyle = {
         marginLeft: 10 + 'px',
         alignSelf: 'center'
+    }
+
+    const textFieldStyle = {
+        background: '#ffffff',
+        borderRadius: 5 + 'px'
     }
 
     return (
@@ -43,7 +46,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) =>
                 error={error}
                 helperText={error ? 'Title is required' : ''}
                 value={title}
-                className={inputErrorClass}
+                style={textFieldStyle}
                 onChange={onChangeSetNewTaskTitle}
                 onBlur={onBlurSetErrorFalse}
                 onKeyDown={onKeyDownAddNewTask}
@@ -53,7 +56,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) =>
                         className={aifStyle.addTaskBtn}
                         style={addBtnStyle}
             >
-                <AddBox color={'secondary'}
+                <AddBox style={{color: '#2ca46a'}}
                         fontSize={'medium'}
                 />
             </IconButton>
